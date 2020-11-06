@@ -20,6 +20,18 @@ module.exports = function (app) {
       });
     });
 
+  app.post("/api/sign_in", ({body}, res) => {
+    console.log("Signing in");
+    console.log(body);
+    UsersCollection.find(body.email) 
+    .then(user => {
+        res.json(user);
+      })
+      .catch(err => {
+        res.json(err);
+      });
+    });
+
   app.post("/api/post", ({body}, res) => {
     console.log("Signing up");
 
