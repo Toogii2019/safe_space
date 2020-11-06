@@ -1,6 +1,14 @@
-# Create React Express App
+# safe space
 
-## About This Boilerplate
+### Team:
+| Frontend:      | Backend:       |
+| -------------- | -------------- |
+| Aiya Siddig    | Cheyenne Hunt  |
+| Julee Butler   | Connor Maguire |
+| Jessica Feng   | Toogi          |
+
+
+# Safe Space
 
 This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
 
@@ -26,4 +34,8 @@ Your app should now be running on <http://localhost:3000>. The Express server sh
 
 ## Deployment (Heroku)
 
-To deploy, simply add and commit your changes, and push to Heroku. As is, the NPM scripts should take care of the rest.
+https://safe-space-2020.herokuapp.com/
+
+## Git Repository (GitHub)
+
+https://github.com/Toogii2019/safe_space
