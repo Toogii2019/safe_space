@@ -1,3 +1,4 @@
 module.exports = {
-    UsersCollection: require("./Users"),
-  };
+  UsersCollection: require("./Users"),
+  PostsCollection: require("./Posts"),
+};
