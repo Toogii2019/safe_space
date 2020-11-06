@@ -10,32 +10,80 @@
 
 # Safe Space
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+Safe Space is an application for connecting individuals and creating community around.
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+[gif image]
 
-## Starting the app locally
+## User Story
 
-Start by installing front and backend dependencies. While in this directory, run the following command:
+As a person who wants to share my thoughts and worry about workspace
+I want to add my thoughts on a application to save my thought at moment
+So that I can keep the thought public or privately with people
 
-```
-npm install
-```
+## Tools Used
 
-This should install node modules within the server and the client folder.
+* HTML
+* CSS
+* Javascript
+* React
+* Material-UI [https://material-ui.com/]
+* Socket.io
+* Passport
+* Express
+* Node.js
+* MongoDB
+* Mongoose
+* Chatbox (Message) Repo [https://github.com/bookercodes/react-chatbox-component]
 
-After both installations complete, run the following command in your terminal:
+## APIs Used
 
-```
-npm start
-```
+## User Criteria
 
-Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
+GIVEN The glass is desktop or mobile,
+
+WHEN The user interacts with application,
+THEN The pages are responsive,
+
+GIVEN The user lands on the login page,
+
+THEN User will be able to login or sign up to login to application.
+
+
+WHEN The user login, 
+THEN The home page will display the profile of the user and entry that user had posted (public and private).
+
+WHEN User click public board,
+THEN User will be able to see the entry that the other user has posted.
+
+WHEN User click message,
+THEN User will be able to search other users, send personal messages, and view a list of messages in the inbox.
+
+WHEN User click alert,
+THEN User will be able to view message alerts received from other users.
+
+WHEN User click create note,
+THEN User will be able to create new entry of note,
+THEN User will be able to save public or private.
+
+## Screen Map
+
+[image]
+
+## Data Flow Chart
+
+[image]
+
+## Local Usage
+
+1. Clone the repository.
+2. npm install in the terminal to install all dependencies for application.
+3. npm start to start the application locally.
+4. The application should now be running on http://localhost:3000.
 
 ## Deployment (Heroku)
 
-https://safe-space-2020.herokuapp.com/
+[https://safe-space-2020.herokuapp.com/]
 
 ## Git Repository (GitHub)
 
-https://github.com/Toogii2019/safe_space
+[https://github.com/Toogii2019/safe_space]
