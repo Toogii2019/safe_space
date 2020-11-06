@@ -13,15 +13,9 @@ const UsersScema = new Schema({
     type: String,
   },
 },
-{
-  toJSON: {
-    // include any virtual properties when data is requested
-    virtuals: true
-  }
-}
 
 );
 
-const UsersCollection = mongoose.model("Users", UsersScema);
+const UsersCollection = mongoose.model("UsersCollection", UsersScema);
 
 module.exports = UsersCollection;
