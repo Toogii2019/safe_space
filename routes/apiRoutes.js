@@ -33,9 +33,9 @@ module.exports = function (app) {
     });
 
   app.post("/api/post", ({body}, res) => {
-    console.log("Signing up");
-
-    UsersCollection.create(body) 
+    console.log("Posting");
+    console.log(body);
+    PostsCollection.create(body) 
     .then(onepost => {
         res.json(onepost);
         })
@@ -44,7 +44,7 @@ module.exports = function (app) {
         });
     });
   app.get('/api/posts', (req, res) => {
-    UsersCollection.find({})
+    PostsCollection.find({})
     .then(posts => {
         res.json(posts);
         })
