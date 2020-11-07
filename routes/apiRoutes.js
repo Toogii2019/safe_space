@@ -46,7 +46,7 @@ module.exports = function (app) {
 
   app.get('/api/posts/:userEmail', (req, res) => {
     console.log(req);
-    PostsCollection.find({user:req.params.userEmail})
+    PostsCollection.find({user:req.params.userEmail, private: false})
     .then(posts => {
         res.json(posts);
         })
