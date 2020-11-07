@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link, Redirect} from "react-router-dom";
 import Main from './pages/Main';
-import './components/App.css';
 import Login from "./components/login";
 import SignUp from "./components/signup";
 

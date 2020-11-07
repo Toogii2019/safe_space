@@ -69,6 +69,7 @@ module.exports = function (app) {
 
   app.get('/api/posts/public/:userEmail', (req, res) => {
     console.log(req);
+    console.log(req.params);
     PostsCollection.find({user: req.params.userEmail, private: false})
     .then(posts => {
         res.json(posts);
