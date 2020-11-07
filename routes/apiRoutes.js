@@ -44,9 +44,32 @@ module.exports = function (app) {
         });
     });
 
-  app.get('/api/posts/:userEmail', (req, res) => {
+  app.get('/api/posts', (req, res) => {
     console.log(req);
-    PostsCollection.find({user:req.params.userEmail})
+    PostsCollection.find({private: false})
+    .then(posts => {
+        res.json(posts);
+        })
+        .catch(err => {
+        res.json(err);
+        });
+    });
+
+
+  app.get('/api/posts/private/:userEmail', (req, res) => {
+    console.log(req);
+    PostsCollection.find({user: req.params.userEmail, private: true})
+    .then(posts => {
+        res.json(posts);
+        })
+        .catch(err => {
+        res.json(err);
+        });
+    });
+
+  app.get('/api/posts/public/:userEmail', (req, res) => {
+    console.log(req);
+    PostsCollection.find({user: req.params.userEmail, private: false})
     .then(posts => {
         res.json(posts);
         })
