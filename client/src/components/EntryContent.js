@@ -33,11 +33,11 @@ export default function MultilineTextFields() {
       private: true,
     }
     sendPost(postInfo); 
-    getPosts(currentUser)
+    getAllPosts()
   }
 
-  const getPosts = (currentUser) => {
-    posts(currentUser)
+  const getAllPosts = () => {
+    posts()
     .then(res => localStorage.setItem("allPosts", JSON.stringify(res.data)))
   }
 
@@ -50,6 +50,7 @@ export default function MultilineTextFields() {
       private: false,
     }
     sendPost(postInfo); 
+    getAllPosts()
   }
 
 
