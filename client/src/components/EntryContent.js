@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
-import {post} from '../utils/API';
+import {posting} from '../utils/API';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,24 +21,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MultilineTextFields() {
   const classes = useStyles();
-  const [postvalue, setValue] = useState(
-    { contentTitle : "",
-
-      content : ""}
-  );
-
-  const handleChange = (event) => {
-   
-    console.log("handling change"); 
-    setValue(event);
-  };
+  const [postTitle, setTitle] = useState()
+  const [postContent, setContent] = useState()
   
   const handlePost = (event) => {
-    console.log("work")
-    console.log(postvalue);
-    console.log(postvalue.contentTitle);
-    console.log(postvalue.content);
-
+    let postInfo = {
+      user: JSON.parse(localStorage.getItem("currentUser")).email,
+      title: postTitle,
+      post: postContent,
+      private: false
+    }
+    posting(postInfo)
+    .then(res => {
+      localStorage.setItem("lastestPost", JSON.stringify(res.data))
+      console.log(res);
+    })
   }
 
   return (
@@ -50,10 +47,9 @@ export default function MultilineTextFields() {
           label="Enter Note Title"
           multiline
           rowsMax={4}
-          value={postvalue.contentTitle}
-          onChange={(e) => setValue({[e.target.name]: e.target.value})}
+          value={postTitle}
+          onChange={(e) => setTitle(e.target.value)}
           variant="outlined"
-          name="contentTitle"
         />
       </div>
       <div>
@@ -62,11 +58,10 @@ export default function MultilineTextFields() {
           label="Enter Note Content"
           multiline
           rows={4}
-          defaultValue="Content"
+
           variant="outlined"
-          onChange={(e) => setValue({[e.target.name]: e.target.value})}
-          value={postvalue.content}
-          name="content"
+          onChange={(e) => setContent(e.target.value)}
+          value={postContent}
         />
       </div>
       <div>

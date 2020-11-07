@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { UsersCollection, PostsCollection } = require("../models");
 
-mongoose.connect("mongodb://localhost/lessondb" || process.env.DBURI, {
+mongoose.connect(process.env.DBURI || "mongodb://localhost/lessondb", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
@@ -34,7 +34,7 @@ module.exports = function (app) {
 
   app.post("/api/post", ({body}, res) => {
     console.log("Posting");
-
+    console.log(body);
     PostsCollection.create(body) 
     .then(onepost => {
         res.json(onepost);
