@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
+import {post} from '../utils/API';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,11 +21,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MultilineTextFields() {
   const classes = useStyles();
-  const [value, setValue] = React.useState('Post');
+  const [postvalue, setValue] = useState(
+    { contentTitle : "",
+
+      content : ""}
+  );
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+   
+    console.log("handling change"); 
+    setValue(event);
   };
+  
+  const handlePost = (event) => {
+    console.log("work")
+    console.log(postvalue);
+    console.log(postvalue.contentTitle);
+    console.log(postvalue.content);
+
+  }
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -35,9 +50,10 @@ export default function MultilineTextFields() {
           label="Enter Note Title"
           multiline
           rowsMax={4}
-          value={value}
-          onChange={handleChange}
+          value={postvalue.contentTitle}
+          onChange={(e) => setValue({[e.target.name]: e.target.value})}
           variant="outlined"
+          name="contentTitle"
         />
       </div>
       <div>
@@ -48,7 +64,9 @@ export default function MultilineTextFields() {
           rows={4}
           defaultValue="Content"
           variant="outlined"
-          onChange={handleChange}
+          onChange={(e) => setValue({[e.target.name]: e.target.value})}
+          value={postvalue.content}
+          name="content"
         />
       </div>
       <div>
@@ -67,6 +85,7 @@ export default function MultilineTextFields() {
         size="large"
         className={classes.button}
         startIcon={<SaveIcon />}
+        onClick={handlePost}
       >
         Save To Private Note
       </Button>
