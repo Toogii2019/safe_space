@@ -24,14 +24,32 @@ export default function MultilineTextFields() {
   const [postTitle, setTitle] = useState()
   const [postContent, setContent] = useState()
   
-  const handlePost = (event) => {
+  const handlePrivatePost = (e) => {
+
     let postInfo = {
       user: JSON.parse(localStorage.getItem("currentUser")).email,
       title: postTitle,
       post: postContent,
-      private: false
+      private: true,
     }
-    posting(postInfo)
+    sendPost(postInfo); 
+  }
+
+
+  const handlePublicPost = (e) => {
+
+    let postInfo = {
+      user: JSON.parse(localStorage.getItem("currentUser")).email,
+      title: postTitle,
+      post: postContent,
+      private: false,
+    }
+    sendPost(postInfo); 
+  }
+
+
+  const sendPost = (postInformation) => {
+    posting(postInformation)
     .then(res => {
       localStorage.setItem("lastestPost", JSON.stringify(res.data))
       console.log(res);
@@ -71,6 +89,7 @@ export default function MultilineTextFields() {
         size="large"
         className={classes.button}
         startIcon={<CloudUploadIcon />}
+        onClick={handlePublicPost}
       >
         Upload To Public
       </Button>
@@ -78,9 +97,10 @@ export default function MultilineTextFields() {
         variant="contained"
         color="primary"
         size="large"
+        value="private"
         className={classes.button}
         startIcon={<SaveIcon />}
-        onClick={handlePost}
+        onClick={handlePrivatePost}
       >
         Save To Private Note
       </Button>
@@ -88,6 +108,7 @@ export default function MultilineTextFields() {
         variant="contained"
         color="secondary"
         size="large"
+        value="public"
         className={classes.button}
         startIcon={<DeleteIcon />}
       >
