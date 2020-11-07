@@ -39,7 +39,6 @@ function Row(props) {
   const classes = useRowStyles();
   const username = JSON.parse(localStorage.getItem("currentUser")).email
   
-    
   useEffect(() => {
     // Update the document title using the browser API
     userPrivatePosts(username)
