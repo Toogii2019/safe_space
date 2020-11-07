@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { UsersCollection, PostsCollection } = require("../models");
 
-mongoose.connect("mongodb://localhost/lessondb" || process.env.DBURI, {
+mongoose.connect(process.env.DBURI || "mongodb://localhost/lessondb", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
