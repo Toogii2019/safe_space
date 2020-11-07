@@ -45,7 +45,7 @@ function Row(props) {
     userPrivatePosts(username)
     .then(res =>
       localStorage.setItem("userPrivatePost", JSON.stringify(res.data)))
-  });
+    },[]);
 
   return (
     <React.Fragment>
