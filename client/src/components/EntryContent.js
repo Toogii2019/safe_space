@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
-import {posting} from '../utils/API';
+import {posting, posts} from '../utils/API';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,14 +24,37 @@ export default function MultilineTextFields() {
   const [postTitle, setTitle] = useState()
   const [postContent, setContent] = useState()
   
-  const handlePost = (event) => {
+  const handlePrivatePost = (e) => {
+    let currentUser = JSON.parse(localStorage.getItem("currentUser")).email;
+    let postInfo = {
+      user: currentUser,
+      title: postTitle,
+      post: postContent,
+      private: true,
+    }
+    sendPost(postInfo); 
+    getPosts(currentUser)
+  }
+
+  const getPosts = (currentUser) => {
+    posts(currentUser)
+    .then(res => localStorage.setItem("allPosts", JSON.stringify(res.data)))
+  }
+
+  const handlePublicPost = (e) => {
+
     let postInfo = {
       user: JSON.parse(localStorage.getItem("currentUser")).email,
       title: postTitle,
       post: postContent,
-      private: false
+      private: false,
     }
-    posting(postInfo)
+    sendPost(postInfo); 
+  }
+
+
+  const sendPost = (postInformation) => {
+    posting(postInformation)
     .then(res => {
       localStorage.setItem("lastestPost", JSON.stringify(res.data))
       console.log(res);
@@ -71,6 +94,7 @@ export default function MultilineTextFields() {
         size="large"
         className={classes.button}
         startIcon={<CloudUploadIcon />}
+        onClick={handlePublicPost}
       >
         Upload To Public
       </Button>
@@ -78,9 +102,10 @@ export default function MultilineTextFields() {
         variant="contained"
         color="primary"
         size="large"
+        value="private"
         className={classes.button}
         startIcon={<SaveIcon />}
-        onClick={handlePost}
+        onClick={handlePrivatePost}
       >
         Save To Private Note
       </Button>
@@ -88,6 +113,7 @@ export default function MultilineTextFields() {
         variant="contained"
         color="secondary"
         size="large"
+        value="public"
         className={classes.button}
         startIcon={<DeleteIcon />}
       >
