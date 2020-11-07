@@ -2,16 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-// import Tabs from '@material-ui/core/Tabs'; for nav tab design
-// import Tab from '@material-ui/core/Tab'; for nav tab design
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import EntryGrid from './EntryGrid';
 import ProfileGrid from './ProfileGrid';
 import MessageGrid from './MessageGrid';
 import Notification from './Notification';
-
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,10 +60,10 @@ export default function ScrollableTabsButtonAuto() {
     setValue(newValue);
   };
 
-  return (<Router>
+  return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
-        {/* <Tabs
+        <Tabs
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
@@ -73,32 +71,25 @@ export default function ScrollableTabsButtonAuto() {
           variant="scrollable"
           scrollButtons="auto"
           aria-label="scrollable auto tabs example" for nav tab design
-        > */} 
-          <Link to={'/profile'} label="Profile" {...a11yProps(0)}>Profile</Link>
-          {/* <Link to={'/publicfeed'} label="Public Feed" {...a11yProps(1)}>Public Feed</Link> */}
-          <Link to={'/notification'} label="Notification" {...a11yProps(2)}>Notification</Link>
-          <Link to={'/message'} label="Message" {...a11yProps(3)}>Message</Link>
-          <Link to={'/feed_entry'} label="Entry" {...a11yProps(4)}>Entry and Public Feed</Link>
-        {/* </Tabs> */}
+        > 
+          <Tab to={'/profile'} label="Profile" {...a11yProps(0)} />
+          <Tab to={'/publicfeed'} label="Public Feed" {...a11yProps(1)} />
+          <Tab to={'/notification'} label="Notification" {...a11yProps(2)} />
+          <Tab to={'/message'} label="Message" {...a11yProps(3)} />
+        </Tabs>
       </AppBar>
-      <Switch>
-      {/* <TabPanel value={value} index={0}> */}
-        <Route exact path='/profile' component={ProfileGrid} />
-      {/* </TabPanel> */}
-      {/* <TabPanel value={value} index={1}> */}
-        {/* <Route exact path='/publicfeed' component={PublicFeed} /> */}
-      {/* </TabPanel> */}
-      {/* <TabPanel value={value} index={2}> */}
-        <Route exact path='/notification' component={Notification} />
-      {/* </TabPanel>
-      <TabPanel value={value} index={3}> */}
-       <Route exact path='/message' component={MessageGrid} />
-      {/* </TabPanel> */}
-      {/* <TabPanel value={value} index={4}> */}
-        <Route exact path='/feed_entry' component={EntryGrid} />
-      {/* </TabPanel> */}
-      </Switch>
+      <TabPanel value={value} index={0}>
+        <ProfileGrid></ProfileGrid>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+       <EntryGrid></EntryGrid>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <Notification></Notification>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+       <MessageGrid></MessageGrid>
+      </TabPanel>
     </div>
-    </Router>
   );
 }

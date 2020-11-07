@@ -20,14 +20,14 @@ module.exports = function (app) {
       });
     });
 
-  app.post("/api/sign_in", ({body}, res) => {
-    console.log("Signing in");
-    console.log(body);
-    UsersCollection.find(body.email) 
+  app.post("/api/sign_in", ({body:{email}}, res) => {
+    UsersCollection.find({email}) 
     .then(user => {
-        res.json(user);
+      console.log(user)
+        user.length && res.json(user[0]);
       })
       .catch(err => {
+        console.log(ErrorEvent)
         res.json(err);
       });
     });

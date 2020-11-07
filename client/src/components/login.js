@@ -1,26 +1,24 @@
 import React, { Component } from "react";
-import $ from 'jquery';
+import {login} from "../utils/API";
 
 export default class Login extends Component {
 
+    state= {
+        email: "",
+        password: "" 
+    }
+
     handleSignIn = () => {
         console.log("Sending user info for sign in");
-
-        const newUserInfo = {
-            email: $(".email").val(),
-            password: $(".password").val() 
-        }
-
-        const data = {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newUserInfo)
-        };
-        fetch("/api/sign_in", data)
-        .then(res => console.log(res));
+        login(this.state)
+        .then(res => {
+            localStorage.setItem("currentUser", JSON.stringify(res.data))
+            this.props.setUser(res.data);
+            window.location.replace("/member")
+        });
     }
+
+    handleChange = ({target:{name,value}}) => this.setState({[name]:value})
 
     render() {
         return (
@@ -29,12 +27,12 @@ export default class Login extends Component {
 
                 <div className="form-group">
                     <label>Email address</label>
-                    <input type="email" className="form-control email" placeholder="Enter email" />
+                    <input type="email" onChange={this.handleChange} value={this.state.email} name="email" className="form-control email" placeholder="Enter email" />
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
-                    <input type="password" className="form-control password" placeholder="Enter password" />
+                    <input type="password" onChange={this.handleChange} value={this.state.password} name="password" className="form-control password" placeholder="Enter password" />
                 </div>
 
                 <div className="form-group">
