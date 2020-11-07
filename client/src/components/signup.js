@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {signup} from "../utils/API";
+// import './loginSignup.css';
 
 export default class SignUp extends Component {
     state = {

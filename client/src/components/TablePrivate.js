@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import {userPrivatePosts} from '../utils/API';
 
 const useRowStyles = makeStyles({
   root: {
@@ -36,6 +37,15 @@ function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
+  const username = JSON.parse(localStorage.getItem("currentUser")).email
+  
+    
+  useEffect(() => {
+    // Update the document title using the browser API
+    userPrivatePosts(username)
+    .then(res =>
+      localStorage.setItem("userPrivatePost", JSON.stringify(res.data)))
+    },[]);
 
   return (
     <React.Fragment>

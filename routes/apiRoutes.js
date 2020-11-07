@@ -34,7 +34,6 @@ module.exports = function (app) {
 
   app.post("/api/post", ({body}, res) => {
     console.log("Posting");
-    console.log(body);
     PostsCollection.create(body) 
     .then(onepost => {
         res.json(onepost);
@@ -45,7 +44,6 @@ module.exports = function (app) {
     });
 
   app.get('/api/posts', (req, res) => {
-    console.log(req);
     PostsCollection.find({private: false})
     .then(posts => {
         res.json(posts);
@@ -57,9 +55,10 @@ module.exports = function (app) {
 
 
   app.get('/api/posts/private/:userEmail', (req, res) => {
-    console.log(req);
+    console.log(req.params)
     PostsCollection.find({user: req.params.userEmail, private: true})
     .then(posts => {
+        console.log(posts);
         res.json(posts);
         })
         .catch(err => {
@@ -68,7 +67,6 @@ module.exports = function (app) {
     });
 
   app.get('/api/posts/public/:userEmail', (req, res) => {
-    console.log(req);
     PostsCollection.find({user: req.params.userEmail, private: false})
     .then(posts => {
         res.json(posts);
