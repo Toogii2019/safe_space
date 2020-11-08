@@ -15,7 +15,15 @@ export default class SignUp extends Component {
 
     handleSignUp = () => {
        signup(this.state)
-        .then(res => console.log(res));;
+        .then(res => {
+            if (res.data.email === undefined) {
+                console.log("User already exist");
+                return
+            }
+            else {
+                window.location.replace("/")
+            }
+        });;
     }
 
     render() {
