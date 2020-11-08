@@ -13,14 +13,18 @@ export default class Login extends Component {
         console.log("Sending user info for sign in");
         login(this.state)
         .then(res => {
-            localStorage.setItem("currentUser", JSON.stringify(res.data))
-            this.props.setUser(res.data);
-            window.location.replace("/member")
+            if (res.data === null) {
+                localStorage.clear();
+            }
+            else {
+                localStorage.setItem("currentUser", JSON.stringify(res.data))
+                this.props.setUser(res.data);
+                window.location.replace("/member")
+            }
         });
     }
 
     handleChange = ({target:{name,value}}) => this.setState({[name]:value})
-
     render() {
         return (
             <form>
