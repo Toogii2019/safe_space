@@ -17,11 +17,11 @@ export default class SignUp extends Component {
        signup(this.state)
         .then(res => {
             if (res.data.email === undefined) {
-                console.log("User already exist");
-                return
+                alert("User with the same nickname or email exists in our Database!");
+                window.location.replace("/sign-up");
             }
             else {
-                window.location.replace("/")
+                window.location.replace("/");
             }
         });;
     }
