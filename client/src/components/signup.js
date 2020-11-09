@@ -26,6 +26,10 @@ export default class SignUp extends Component {
         });;
     }
 
+    forwardToSignIn = () => {
+        window.location.replace("/");
+    }
+
     render() {
         return (
             <form>
@@ -48,7 +52,7 @@ export default class SignUp extends Component {
 
                 <button type="button" className="btn btn-light btn-block" onClick={this.handleSignUp}>Sign Up</button>
                 <p className="forgot-password text-right">
-                    Already registered <button type="button" className="btn btn-light btn-block" >Sign In</button>
+                    Already registered <button type="button" className="btn btn-light btn-block" onClick={this.forwardToSignIn} >Sign In</button>
                 </p>
             </form>
         );
