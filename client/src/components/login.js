@@ -16,7 +16,7 @@ export default class Login extends Component {
             if (res.data === null) {
                 localStorage.clear();
                 alert("Username or Password is incorrect!");
-                window.location.replace("/")
+                this.setState({email: "", password: ""});
             }
             else {
                 localStorage.setItem("currentUser", JSON.stringify(res.data))
