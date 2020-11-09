@@ -18,7 +18,7 @@ export default class SignUp extends Component {
         .then(res => {
             if (res.data.email === undefined) {
                 alert("User with the same nickname or email exists in our Database!");
-                window.location.replace("/sign-up");
+                this.setState({nickname: "", email: "", password: ""})
             }
             else {
                 window.location.replace("/");
