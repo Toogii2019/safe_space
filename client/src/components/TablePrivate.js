@@ -24,19 +24,28 @@ const useRowStyles = makeStyles({
   },
 });
 
-function createData(title) {
-  return {	
-    title,
-    history: [	
-      { date: 'Data retrived from Database', content: 'Content retrived from Database' },
-    ],	
-  };	
-}
+// function createData(title) {
+//   return {	
+//     title,
+//     history: [	
+//       { date: 'Data retrived from Database', content: 'Content retrived from Database' },
+//     ],	
+//   };	
+// }
 
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
+  let username = JSON.parse(localStorage.getItem("currentUser")).email
+
+  useEffect(() => {
+    userPrivatePosts(username)
+    .then(res => {
+      localStorage.setItem("userPrivatePost", JSON.stringify(res.data));
+    })
+    },[]);
+
  
   return (
     <React.Fragment>
@@ -89,13 +98,6 @@ Row.propTypes = {
 
 
 export default function CollapsibleTable() {
-  let username = JSON.parse(localStorage.getItem("currentUser")).email
-  useEffect(() => {
-    userPrivatePosts(username)
-    .then(res => {
-      localStorage.setItem("userPrivatePost", JSON.stringify(res.data));
-    })
-    },[]);
 
 
   var rows = [];
