@@ -30,20 +30,66 @@ export default function SimpleCard() {
   }, []);
 
   return (
-
-    
     <Card className={classes.root}>
-      {JSON.parse(localStorage["allposts"]).map((contents) => (
       <CardContent>
-        <h2>{contents.user}</h2>
+          <Avatar></Avatar>
+          <Typography variant = "h6" component="h6" style = {{ textAlign: "Left", fontSize: "16px", marginLeft: "60px", marginTop: "-40px", marginBottom: "20px" }}> Nick-Name</Typography> 
         <Typography variant="h5" component="h2" style = {{ textAlign: "left", fontSize: "20px"}}> 
-          {contents.title}
+          Entry Title
         </Typography>
         <Typography variant="body2" component="p" style = {{ textAlign: "left", marginBottom: ""}}>
-        {contents.post} 
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+        <br></br>
+        <Typography vairant= "h3" component="h3" style ={{ marginLeft: "300px"}}>
+        <Button>Comments</Button>
         </Typography>
-      </CardContent> 
-      ))}
+        <hr></hr>
+        </Typography>
+      </CardContent>
+      <CardContent>
+          <Avatar></Avatar>
+          <Typography variant = "h6" component="h6" style = {{ textAlign: "Left", fontSize: "16px", marginLeft: "60px", marginTop: "-40px", marginBottom: "20px" }}> Nick-Name</Typography>
+        <Typography variant="h5" component="h2" style = {{ textAlign: "left", fontSize: "20px"}}> 
+        Entry Title
+        </Typography>
+        <Typography variant="body2" component="p" style = {{ textAlign: "left", marginBottom: ""}}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+        <br></br>
+        <Typography vairant= "h3" component="h3" style ={{ marginLeft: "300px"}}>
+        <Button>Comments</Button>
+        </Typography>
+        <hr></hr>
+        </Typography>
+      </CardContent>
+      <CardContent>
+          <Avatar></Avatar>
+          <Typography variant = "h6" component="h6" style = {{ textAlign: "Left", fontSize: "16px", marginLeft: "60px", marginTop: "-40px", marginBottom: "20px" }}> Nick-Name</Typography>
+        <Typography variant="h5" component="h2" style = {{ textAlign: "left", fontSize: "20px"}}> 
+          Entry Title
+        </Typography>
+        <Typography variant="body2" component="p" style = {{ textAlign: "left", marginBottom: ""}}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+        <br></br>
+        <Typography vairant= "h3" component="h3" style ={{ marginLeft: "300px"}}></Typography>
+        <Button>Comments</Button>
+        <hr></hr>
+        </Typography>
+      </CardContent>
+      <CardContent>
+          <Avatar></Avatar>
+          <Typography variant = "h6" component="h6" style = {{ textAlign: "Left", fontSize: "16px", marginLeft: "60px", marginTop: "-40px", marginBottom: "20px" }}> Nick-Name</Typography>
+        <Typography variant="h5" component="h2" style = {{ textAlign: "left", fontSize: "20px"}}> 
+          Entry Title
+        </Typography>
+        <Typography variant="body2" component="p" style = {{ textAlign: "left", marginBottom: ""}}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+        <br></br>
+        <Typography vairant= "h3" component="h3" style ={{ marginLeft: "300px"}}></Typography>
+        <Button>Comments</Button>
+        <hr></hr>
+        </Typography>
+      </CardContent>
     </Card>
+    
   );
 }

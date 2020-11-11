@@ -36,16 +36,16 @@ export default function ImageAvatars() {
         <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
         </div>
         <Typography variant="h5" component="h2">
-          NickName of User
+          {JSON.parse(localStorage.getItem("currentUser")).nickname}
         </Typography>
         <Typography variant="body2" component="p">
-          Email Associated with User
+        {JSON.parse(localStorage.getItem("currentUser")).email}
         </Typography>
         <Typography variant="body2" component="p">
-          Possible count of public post
+          Number of Public Posts : {JSON.parse(localStorage.getItem("userPublicPost")).length}
         </Typography>
         <Typography variant="body2" component="p">
-          Possible count of private post
+        Number of Private Posts : {JSON.parse(localStorage.getItem("userPrivatePost")).length}
         </Typography>
       </CardContent>
     </Card>

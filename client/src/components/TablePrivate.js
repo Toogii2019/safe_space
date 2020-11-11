@@ -24,26 +24,28 @@ const useRowStyles = makeStyles({
   },
 });
 
-// function createData(title) {
-//   return {
-//     title,
-//     history: [
-//       { date: 'Data retrived from Database', content: 'Content retrived from Database' },
-//     ],
-//   };
-// }
+function createData(title) {
+  return {	
+    title,
+    history: [	
+      { date: 'Data retrived from Database', content: 'Content retrived from Database' },
+    ],	
+  };	
+}
 
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
-  const username = JSON.parse(localStorage.getItem("currentUser")).email
+  const username = JSON.parse(localStorage.getItem("currentUser")).email;
+  console.log("In the TablePrivate.js. user is ", username)
 
   useEffect(() => {
     // Update the document title using the browser API
     userPrivatePosts(username)
-    .then(res =>
-      localStorage.setItem("userPrivatePost", JSON.stringify(res.data)))
+    .then(res => {
+      localStorage.setItem("userPrivatePost", JSON.stringify(res.data));
+    })
     },[]);
 
   return (
@@ -65,11 +67,13 @@ function Row(props) {
               <Typography variant="h6" gutterBottom component="div">
                 Content
               </Typography>
-              <Table size="small">
+              <Table size="small" aria-label="purchases">
                 <TableHead>
+                <TableBody>
                   <TableRow>
-                    <TableCell component="th" scope="row">{row.post}</TableCell>
+                    <TableCell>{row.post}</TableCell>
                   </TableRow>
+                  </TableBody>
                 </TableHead>
               </Table>
             </Box>
@@ -92,13 +96,7 @@ Row.propTypes = {
   }).isRequired,
 };
 
-// const rows = [
-//   createData('title from db: Frozen yoghurt'),
-//   createData('title: Ice cream sandwich'),
-//   createData('title: Eclair'),
-//   createData('title: Cupcake'),
-//   createData('title: Gingerbread'),
-// ];
+const rows = JSON.parse(localStorage.getItem("userPrivatePost"))
 
 export default function CollapsibleTable() {
   return (
@@ -110,12 +108,11 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {JSON.parse(localStorage["userPrivatePost"]).map((row) => (
-            <Row key={row.name} row={row} />
+        {rows.map((row) => (
+          <Row key={row.name} row={row} />
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
-
