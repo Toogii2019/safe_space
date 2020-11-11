@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function MultilineTextFields() {
-
+  const username = JSON.parse(localStorage.getItem("currentUser")).email
   useEffect(() => {
     // Update the document title using the browser API
     posts()
@@ -46,7 +46,7 @@ export default function MultilineTextFields() {
       private: true,
     }
     sendPost(postInfo); 
-    // getPrivatePosts(username)
+    getPrivatePosts(username)
     getAllPosts()
   }
 
@@ -55,6 +55,19 @@ export default function MultilineTextFields() {
     .then(res => localStorage.setItem("allposts", JSON.stringify(res.data)))
   }
 
+  const getPublicPosts = () => {
+    userPublicPosts(username)
+    .then(res => {
+      localStorage.setItem("userPublicPost", JSON.stringify(res.data));
+    })
+  }
+
+  const getPrivatePosts = () => {
+    userPrivatePosts(username)
+    .then(res => {
+      localStorage.setItem("userPrivatePost", JSON.stringify(res.data));
+    })
+  }
 
   const handlePublicPost = (e) => {
     let username = JSON.parse(localStorage.getItem("currentUser")).email
@@ -65,7 +78,7 @@ export default function MultilineTextFields() {
       private: false,
     }
     sendPost(postInfo); 
-    // getPublicPosts(username)
+    getPublicPosts(username)
     getAllPosts()
   }
 
