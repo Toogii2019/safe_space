@@ -24,14 +24,14 @@ const useRowStyles = makeStyles({
   },
 });
 
-function createData(title) {
-  return {
-    title,
-    history: [
-      { date: 'Data retrived from Database', content: 'Content retrived from Database' },
-    ],
-  };
-}
+// function createData(title) {
+//   return {
+//     title,
+//     history: [
+//       { date: 'Data retrived from Database', content: 'Content retrived from Database' },
+//     ],
+//   };
+// }
 
 function Row(props) {
   const { row } = props;
@@ -63,13 +63,12 @@ function Row(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="h6" gutterBottom component="div">
-                Details About Note
+                Content
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size="small">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Content</TableCell>
+                    <TableCell component="th" scope="row">{row.post}</TableCell>
                   </TableRow>
                 </TableHead>
               </Table>
@@ -93,13 +92,13 @@ Row.propTypes = {
   }).isRequired,
 };
 
-const rows = [
-  createData('title from db: Frozen yoghurt'),
-  createData('title: Ice cream sandwich'),
-  createData('title: Eclair'),
-  createData('title: Cupcake'),
-  createData('title: Gingerbread'),
-];
+// const rows = [
+//   createData('title from db: Frozen yoghurt'),
+//   createData('title: Ice cream sandwich'),
+//   createData('title: Eclair'),
+//   createData('title: Cupcake'),
+//   createData('title: Gingerbread'),
+// ];
 
 export default function CollapsibleTable() {
   return (
@@ -111,7 +110,7 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {JSON.parse(localStorage["userPublicPost"]).map((row) => (
             <Row key={row.name} row={row} />
           ))}
         </TableBody>
@@ -119,3 +118,4 @@ export default function CollapsibleTable() {
     </TableContainer>
   );
 }
+

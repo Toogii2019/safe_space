@@ -24,14 +24,12 @@ const useRowStyles = makeStyles({
   },
 });
 
-function createData(title) {
-  return {	
-    title,
-    history: [	
-      { date: 'Data retrived from Database', content: 'Content retrived from Database' },
-    ],	
-  };	
-}
+// function createData(title, postss) {
+//   return {
+//     title,
+//     content: postss
+//   };
+// }
 
 function Row(props) {
   const { row } = props;
@@ -66,12 +64,11 @@ function Row(props) {
               <Typography variant="h6" gutterBottom component="div">
                 Content
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size="small">
                 <TableHead>
                 <TableBody>
                   <TableRow>
-                    <TableCell>Date</TableCell>	                   
-                    <TableCell>Content</TableCell>
+                    <TableCell component="th" scope="row">{row.post}</TableCell>
                   </TableRow>
                   </TableBody>
                 </TableHead>
@@ -96,14 +93,6 @@ Row.propTypes = {
   }).isRequired,
 };
 
-const rows = [	
-  createData('title from db: Frozen yoghurt'),	
-  createData('title: Ice cream sandwich'),	
-  createData('title: Eclair'),	
-  createData('title: Cupcake'),	
-  createData('title: Gingerbread'),	
-];
-
 export default function CollapsibleTable() {
   return (
     <TableContainer component={Paper}>
@@ -114,8 +103,8 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-        {rows.map((row) => (
-          <Row key={row.name} row={row} />
+          {JSON.parse(localStorage["userPrivatePost"]).map((row) => (
+            <Row key={row.name} row={row} />
           ))}
         </TableBody>
       </Table>
