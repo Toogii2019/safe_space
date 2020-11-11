@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -8,6 +8,8 @@ import SaveIcon from '@material-ui/icons/Save';
 import {posting, posts} from '../utils/API';
 
 const useStyles = makeStyles((theme) => ({
+
+  
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
@@ -19,7 +21,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function MultilineTextFields() {
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    posts()
+    .then(res =>
+      localStorage.setItem("allposts", JSON.stringify(res.data)))
+    },[]);
+
+    
   const classes = useStyles();
   const [postTitle, setTitle] = useState()
   const [postContent, setContent] = useState()
