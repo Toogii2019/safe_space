@@ -37,8 +37,7 @@ function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
-  const username = JSON.parse(localStorage.getItem("currentUser")).email;
-
+ 
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
@@ -98,6 +97,7 @@ export default function CollapsibleTable() {
     })
     },[]);
 
+
   var rows = [];
   
   if (JSON.parse(localStorage.getItem("userPrivatePost")) === null) {
@@ -116,9 +116,14 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-        {rows.map((row) => (
+        {rows.length !== 0 ?
+        
+        rows.map((row) => (
           <Row key={row.name} row={row} />
-          ))}
+          ))
+        :
+        <Row key={1} row={1} />
+        }
         </TableBody>
       </Table>
     </TableContainer>
