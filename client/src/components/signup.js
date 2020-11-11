@@ -14,22 +14,16 @@ export default class SignUp extends Component {
     }
 
     handleSignUp = () => {
-        if (this.state.nickname && this.state.email && this.state.password) {
-            signup(this.state)
-                .then(res => {
-                    if (res.data.email === undefined) {
-                        alert("User with the same nickname or email exists in our Database!");
-                        this.setState({nickname: "", email: "", password: ""})
-                    }
-                    else {
-                        window.location.replace("/");
-                    }
-                });;
-        }
-        else {
-            alert("Please fill up all the fields");
-            this.setState({nickname: "", email: "", password: ""})
-        }
+       signup(this.state)
+        .then(res => {
+            if (res.data.email === undefined) {
+                alert("User with the same nickname or email exists in our Database!");
+                this.setState({nickname: "", email: "", password: ""})
+            }
+            else {
+                window.location.replace("/");
+            }
+        });;
     }
 
     forwardToSignIn = () => {
