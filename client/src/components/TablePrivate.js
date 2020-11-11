@@ -64,7 +64,7 @@ function Row(props) {
               <Typography variant="h6" gutterBottom component="div">
                 Content
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size="small">
                 <TableHead>
                 <TableBody>
                   <TableRow>

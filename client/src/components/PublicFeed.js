@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
@@ -21,72 +22,39 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleCard() {
+Row.propTypes = {
+  row: PropTypes.shape({
+    history: PropTypes.arrayOf(
+      PropTypes.shape({
+        content: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default function Row(props) {
+  const { row } = props;
+  const username = JSON.parse(localStorage.getItem("currentUser")).email
   const classes = useStyles();
   
   useEffect(() => { 
-    posts()
+    posts(username)
     .then(res => localStorage.setItem("allposts", JSON.stringify(res.data)))
   }, []);
 
   return (
     <Card className={classes.root}>
       <CardContent>
-          <Avatar></Avatar>
-          <Typography variant = "h6" component="h6" style = {{ textAlign: "Left", fontSize: "16px", marginLeft: "60px", marginTop: "-40px", marginBottom: "20px" }}> Nick-Name</Typography> 
+      {JSON.parse(localStorage["userPrivatePost"]).map((contents) => (
+        <Row key={row.name} row={row} /> ))}
+        <h1>{row.email}</h1>
         <Typography variant="h5" component="h2" style = {{ textAlign: "left", fontSize: "20px"}}> 
-          Entry Title
+          {row.title}
         </Typography>
         <Typography variant="body2" component="p" style = {{ textAlign: "left", marginBottom: ""}}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        <br></br>
-        <Typography vairant= "h3" component="h3" style ={{ marginLeft: "300px"}}>
-        <Button>Comments</Button>
-        </Typography>
-        <hr></hr>
-        </Typography>
-      </CardContent>
-      <CardContent>
-          <Avatar></Avatar>
-          <Typography variant = "h6" component="h6" style = {{ textAlign: "Left", fontSize: "16px", marginLeft: "60px", marginTop: "-40px", marginBottom: "20px" }}> Nick-Name</Typography>
-        <Typography variant="h5" component="h2" style = {{ textAlign: "left", fontSize: "20px"}}> 
-        {JSON.parse(localStorage["allposts"])[0].post}
-        </Typography>
-        <Typography variant="body2" component="p" style = {{ textAlign: "left", marginBottom: ""}}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        <br></br>
-        <Typography vairant= "h3" component="h3" style ={{ marginLeft: "300px"}}>
-        <Button>Comments</Button>
-        </Typography>
-        <hr></hr>
-        </Typography>
-      </CardContent>
-      <CardContent>
-          <Avatar></Avatar>
-          <Typography variant = "h6" component="h6" style = {{ textAlign: "Left", fontSize: "16px", marginLeft: "60px", marginTop: "-40px", marginBottom: "20px" }}> Nick-Name</Typography>
-        <Typography variant="h5" component="h2" style = {{ textAlign: "left", fontSize: "20px"}}> 
-          Entry Title
-        </Typography>
-        <Typography variant="body2" component="p" style = {{ textAlign: "left", marginBottom: ""}}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        <br></br>
-        <Typography vairant= "h3" component="h3" style ={{ marginLeft: "300px"}}></Typography>
-        <Button>Comments</Button>
-        <hr></hr>
-        </Typography>
-      </CardContent>
-      <CardContent>
-          <Avatar></Avatar>
-          <Typography variant = "h6" component="h6" style = {{ textAlign: "Left", fontSize: "16px", marginLeft: "60px", marginTop: "-40px", marginBottom: "20px" }}> Nick-Name</Typography>
-        <Typography variant="h5" component="h2" style = {{ textAlign: "left", fontSize: "20px"}}> 
-          Entry Title
-        </Typography>
-        <Typography variant="body2" component="p" style = {{ textAlign: "left", marginBottom: ""}}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        <br></br>
-        <Typography vairant= "h3" component="h3" style ={{ marginLeft: "300px"}}></Typography>
-        <Button>Comments</Button>
-        <hr></hr>
+          {row.post}
         </Typography>
       </CardContent>
     </Card>
