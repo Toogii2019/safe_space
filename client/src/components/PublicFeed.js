@@ -29,7 +29,6 @@ export default function SimpleCard() {
     .then(res => localStorage.setItem("allposts", JSON.stringify(res.data)))
   }, []);
 
-  let renderedJson = JSON.parse(localStorage["allposts"])
   return (
     <Card className={classes.root}>
       <CardContent>
