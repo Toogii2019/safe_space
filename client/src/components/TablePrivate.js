@@ -24,27 +24,26 @@ const useRowStyles = makeStyles({
   },
 });
 
-function createData(title) {
-  return {
-    title,
-    history: [
-      { date: 'Data retrived from Database', content: 'Content retrived from Database' },
-    ],
-  };
-}
+// function createData(title, postss) {
+//   return {
+//     title,
+//     content: postss
+//   };
+// }
 
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
   const username = JSON.parse(localStorage.getItem("currentUser")).email
-  
+
   useEffect(() => {
     // Update the document title using the browser API
     userPrivatePosts(username)
-    .then(res =>
-      localStorage.setItem("userPrivatePost", JSON.stringify(res.data)))
-    },[]);
+    .then(res => {
+      localStorage.setItem("userPrivatePost", JSON.stringify(res.data));
+    })
+    },);
 
   return (
     <React.Fragment>
@@ -63,14 +62,15 @@ function Row(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="h6" gutterBottom component="div">
-                Details About Note
+                Content
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
+                <TableBody>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Content</TableCell>
+                    <TableCell component="th" scope="row">{row.post}</TableCell>
                   </TableRow>
+                  </TableBody>
                 </TableHead>
               </Table>
             </Box>
@@ -93,14 +93,6 @@ Row.propTypes = {
   }).isRequired,
 };
 
-const rows = [
-  createData('title from db: Frozen yoghurt'),
-  createData('title: Ice cream sandwich'),
-  createData('title: Eclair'),
-  createData('title: Cupcake'),
-  createData('title: Gingerbread'),
-];
-
 export default function CollapsibleTable() {
   return (
     <TableContainer component={Paper}>
@@ -111,7 +103,7 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {JSON.parse(localStorage["userPrivatePost"]).map((row) => (
             <Row key={row.name} row={row} />
           ))}
         </TableBody>
