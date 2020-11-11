@@ -62,7 +62,7 @@ module.exports = function (app) {
     });
 
 
-  app.get('/api/posts/private/:userEmail', (req, res) => {
+  app.get('/api/posts/private/', (req, res) => {
     PostsCollection.find({user: req.params.userEmail, private: true})
     .then(posts => {
         res.json(posts);

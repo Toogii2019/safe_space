@@ -44,7 +44,7 @@ function Row(props) {
     userPublicPosts(username)
     .then(res =>
       localStorage.setItem("userPublicPost", JSON.stringify(res.data)))
-    },);
+    },[]);
 
   return (
     <React.Fragment>
@@ -118,3 +118,4 @@ export default function CollapsibleTable() {
     </TableContainer>
   );
 }
+
