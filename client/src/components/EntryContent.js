@@ -69,6 +69,10 @@ export default function MultilineTextFields() {
     getAllPosts()
   }
 
+  const handleDiscard = () => {
+    setContent("");
+    setTitle("");
+  }
 
   const sendPost = (postInformation) => {
     posting(postInformation)
@@ -133,6 +137,7 @@ export default function MultilineTextFields() {
         value="public"
         className={classes.button}
         startIcon={<DeleteIcon />}
+        onClick={handleDiscard}
       >
         Discard Note
       </Button>
