@@ -116,14 +116,9 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-        {rows.length !== 0 ?
-        
-        rows.map((row) => (
-          <Row key={row.name} row={row} />
-          ))
-        :
-        <Row key={1} row={1} />
-        }
+        {rows.map((row) => (
+            <Row key={row.name} row={row} />
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
