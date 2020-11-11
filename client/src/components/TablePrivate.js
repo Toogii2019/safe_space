@@ -24,10 +24,12 @@ const useRowStyles = makeStyles({
   },
 });
 
-// function createData(title, postss) {
+// function createData(title) {
 //   return {
 //     title,
-//     content: postss
+//     history: [
+//       { date: 'Data retrived from Database', content: 'Content retrived from Database' },
+//     ],
 //   };
 // }
 
@@ -40,9 +42,8 @@ function Row(props) {
   useEffect(() => {
     // Update the document title using the browser API
     userPrivatePosts(username)
-    .then(res => {
-      localStorage.setItem("userPrivatePost", JSON.stringify(res.data));
-    })
+    .then(res =>
+      localStorage.setItem("userPrivatePost", JSON.stringify(res.data)))
     },[]);
 
   return (
@@ -66,11 +67,9 @@ function Row(props) {
               </Typography>
               <Table size="small">
                 <TableHead>
-                <TableBody>
                   <TableRow>
                     <TableCell component="th" scope="row">{row.post}</TableCell>
                   </TableRow>
-                  </TableBody>
                 </TableHead>
               </Table>
             </Box>
@@ -93,6 +92,14 @@ Row.propTypes = {
   }).isRequired,
 };
 
+// const rows = [
+//   createData('title from db: Frozen yoghurt'),
+//   createData('title: Ice cream sandwich'),
+//   createData('title: Eclair'),
+//   createData('title: Cupcake'),
+//   createData('title: Gingerbread'),
+// ];
+
 export default function CollapsibleTable() {
   return (
     <TableContainer component={Paper}>
@@ -111,3 +118,4 @@ export default function CollapsibleTable() {
     </TableContainer>
   );
 }
+
