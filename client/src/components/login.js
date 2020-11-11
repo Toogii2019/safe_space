@@ -10,25 +10,20 @@ export default class Login extends Component {
     }
 
     handleSignIn = () => {
-        if (this.state.email && this.state.password) {
-            login(this.state)
-            .then(res => {
-                if (res.data === null) {
-                    localStorage.clear();
-                    alert("Username or Password is incorrect!");
-                    this.setState({email: "", password: ""});
-                }
-                else {
-                    localStorage.setItem("currentUser", JSON.stringify(res.data))
-                    this.props.setUser(res.data);
-                    window.location.replace("/member")
-                }
-            });
-        }
-        else {
-            alert("Please fill up all the fields");
-            this.setState({email: "", password: ""});
-        }
+        console.log("Sending user info for sign in");
+        login(this.state)
+        .then(res => {
+            if (res.data === null) {
+                localStorage.clear();
+                alert("Username or Password is incorrect!");
+                this.setState({email: "", password: ""});
+            }
+            else {
+                localStorage.setItem("currentUser", JSON.stringify(res.data))
+                this.props.setUser(res.data);
+                window.location.replace("/member")
+            }
+        });
     }
 
     handleChange = ({target:{name,value}}) => this.setState({[name]:value})

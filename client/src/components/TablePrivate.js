@@ -24,12 +24,14 @@ const useRowStyles = makeStyles({
   },
 });
 
-// function createData(title, postss) {
-//   return {
-//     title,
-//     content: postss
-//   };
-// }
+function createData(title) {
+  return {	
+    title,
+    history: [	
+      { date: 'Data retrived from Database', content: 'Content retrived from Database' },
+    ],	
+  };	
+}
 
 function Row(props) {
   const { row } = props;
@@ -43,7 +45,7 @@ function Row(props) {
     .then(res => {
       localStorage.setItem("userPrivatePost", JSON.stringify(res.data));
     })
-    },);
+    },[]);
 
   return (
     <React.Fragment>
@@ -68,7 +70,8 @@ function Row(props) {
                 <TableHead>
                 <TableBody>
                   <TableRow>
-                    <TableCell component="th" scope="row">{row.post}</TableCell>
+                    <TableCell>Date</TableCell>	                   
+                    <TableCell>Content</TableCell>
                   </TableRow>
                   </TableBody>
                 </TableHead>
@@ -93,6 +96,14 @@ Row.propTypes = {
   }).isRequired,
 };
 
+const rows = [	
+  createData('title from db: Frozen yoghurt'),	
+  createData('title: Ice cream sandwich'),	
+  createData('title: Eclair'),	
+  createData('title: Cupcake'),	
+  createData('title: Gingerbread'),	
+];
+
 export default function CollapsibleTable() {
   return (
     <TableContainer component={Paper}>
@@ -103,8 +114,8 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {JSON.parse(localStorage["userPrivatePost"]).map((row) => (
-            <Row key={row.name} row={row} />
+        {rows.map((row) => (
+          <Row key={row.name} row={row} />
           ))}
         </TableBody>
       </Table>

@@ -6,17 +6,16 @@ const UsersScema = new Schema({
   nickname: {
     type: String,
     unique: true,
-    required: true,
-    
+    required: true
   },
   email: {
     type: String,
     unique: true,
-    required: true,
+    required: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
 },
 

@@ -5,15 +5,15 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema({
   user: {
     type: String,
-    required: true,
+    required: true
   },
   title: {
     type: String,
-    required: true,
+    required: true
   },
   post: {
     type: String,
-    required: true,
+    required: true
   },
   private: {
     type: Boolean,
