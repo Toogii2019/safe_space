@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {login} from "../utils/API";
+import {login, userPublicPosts,userPrivatePosts} from "../utils/API";
 // import './loginSignup.css';
 
 export default class Login extends Component {
@@ -8,6 +8,20 @@ export default class Login extends Component {
         email: "",
         password: "" 
     }
+
+    getPublicPosts = (username) => {
+        userPublicPosts(username)
+        .then(res => {
+          localStorage.setItem("userPublicPost", JSON.stringify(res.data));
+        })
+      }
+    
+    getPrivatePosts = (username) => {
+        userPrivatePosts(username)
+        .then(res => {
+          localStorage.setItem("userPrivatePost", JSON.stringify(res.data));
+        })
+      }
 
     handleSignIn = () => {
         console.log("Sending user info for sign in");
@@ -19,12 +33,17 @@ export default class Login extends Component {
                 this.setState({email: "", password: ""});
             }
             else {
-                localStorage.setItem("currentUser", JSON.stringify(res.data))
+                localStorage.setItem("currentUser", JSON.stringify(res.data));
+                // this.getPublicPosts(this.state.email);
+                // this.getPrivatePosts(this.state.email);
                 this.props.setUser(res.data);
+
                 window.location.replace("/member")
             }
         });
     }
+
+    
 
     handleChange = ({target:{name,value}}) => this.setState({[name]:value})
     render() {

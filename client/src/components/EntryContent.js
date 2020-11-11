@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
-import {posting, posts} from '../utils/API';
+import {posting, posts, userPrivatePosts, userPublicPosts} from '../utils/API';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -38,31 +38,34 @@ export default function MultilineTextFields() {
   const [postContent, setContent] = useState()
   
   const handlePrivatePost = (e) => {
-    let currentUser = JSON.parse(localStorage.getItem("currentUser")).email;
+    let username = JSON.parse(localStorage.getItem("currentUser")).email;
     let postInfo = {
-      user: currentUser,
+      user: username,
       title: postTitle,
       post: postContent,
       private: true,
     }
     sendPost(postInfo); 
+    // getPrivatePosts(username)
     getAllPosts()
   }
 
   const getAllPosts = () => {
     posts()
-    .then(res => localStorage.setItem("allPosts", JSON.stringify(res.data)))
+    .then(res => localStorage.setItem("allposts", JSON.stringify(res.data)))
   }
 
-  const handlePublicPost = (e) => {
 
+  const handlePublicPost = (e) => {
+    let username = JSON.parse(localStorage.getItem("currentUser")).email
     let postInfo = {
-      user: JSON.parse(localStorage.getItem("currentUser")).email,
+      user: username,
       title: postTitle,
       post: postContent,
       private: false,
     }
     sendPost(postInfo); 
+    // getPublicPosts(username)
     getAllPosts()
   }
 

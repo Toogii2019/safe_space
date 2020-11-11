@@ -28,6 +28,9 @@ class App extends Component {
 
   handleLogout(){
     localStorage.removeItem("currentUser");
+    localStorage.setItem("userPublicPost", "[]");
+    localStorage.setItem("userPrivatePost", "[]");
+    localStorage.setItem("allposts", "[]");
     this.setState({user:null})
     window.location.replace("/")
   }
