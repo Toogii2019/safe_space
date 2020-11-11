@@ -42,10 +42,11 @@ export default function ImageAvatars() {
         {JSON.parse(localStorage.getItem("currentUser")).email}
         </Typography>
         <Typography variant="body2" component="p">
-          Number of Public Posts : {JSON.parse(localStorage.getItem("userPublicPost")).length}
+
+          Number of Public Posts : {JSON.parse(localStorage.getItem("userPublicPost")) !== null ? JSON.parse(localStorage.getItem("userPublicPost")).length : 0}
         </Typography>
         <Typography variant="body2" component="p">
-        Number of Private Posts : {JSON.parse(localStorage.getItem("userPrivatePost")).length}
+          Number of Private Posts : {JSON.parse(localStorage.getItem("userPrivatePost")) !== null ? JSON.parse(localStorage.getItem("userPrivatePost")).length : 0}
         </Typography>
       </CardContent>
     </Card>

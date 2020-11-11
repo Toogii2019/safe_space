@@ -38,15 +38,6 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
   const username = JSON.parse(localStorage.getItem("currentUser")).email;
-  console.log("In the TablePrivate.js. user is ", username)
-
-  useEffect(() => {
-    // Update the document title using the browser API
-    userPrivatePosts(username)
-    .then(res => {
-      localStorage.setItem("userPrivatePost", JSON.stringify(res.data));
-    })
-    },[]);
 
   return (
     <React.Fragment>
@@ -96,9 +87,26 @@ Row.propTypes = {
   }).isRequired,
 };
 
-const rows = JSON.parse(localStorage.getItem("userPrivatePost"))
+
 
 export default function CollapsibleTable() {
+  let username = JSON.parse(localStorage.getItem("currentUser")).email
+  useEffect(() => {
+    userPrivatePosts(username)
+    .then(res => {
+      localStorage.setItem("userPrivatePost", JSON.stringify(res.data));
+    })
+    },[]);
+
+  var rows = [];
+  
+  if (JSON.parse(localStorage.getItem("userPrivatePost")) === null) {
+    rows = [];
+  }
+  else {
+    rows = JSON.parse(localStorage.getItem("userPrivatePost"));
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">

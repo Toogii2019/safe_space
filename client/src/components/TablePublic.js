@@ -25,14 +25,14 @@ const useRowStyles = makeStyles({
   },
 });
 
-function createData(title) {
-  return {
-    title,
-    history: [
-      { date: 'Data retrived from Database', content: 'Content retrived from Database' },
-    ],
-  };
-}
+// function createData(title) {
+//   return {
+//     title,
+//     history: [
+//       { date: 'Data retrived from Database', content: 'Content retrived from Database' },
+//     ],
+//   };
+// }
 
 function Row(props) {
   const { row } = props;
@@ -93,9 +93,26 @@ Row.propTypes = {
   }).isRequired,
 };
 
-const rows = JSON.parse(localStorage.getItem("userPublicPost"));
+
 
 export default function CollapsibleTable() {
+  let username = JSON.parse(localStorage.getItem("currentUser")).email
+  useEffect(() => {
+    userPublicPosts(username)
+    .then(res => {
+      localStorage.setItem("userPublicPost", JSON.stringify(res.data));
+    })
+    },[]);
+
+  var rows = [];
+  
+  if (JSON.parse(localStorage.getItem("userPublicPost")) === null) {
+    rows = [];
+  }
+  else {
+    rows = JSON.parse(localStorage.getItem("userPublicPost"));
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
