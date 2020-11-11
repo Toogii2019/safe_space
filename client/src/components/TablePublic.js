@@ -1,3 +1,4 @@
+
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,14 +25,14 @@ const useRowStyles = makeStyles({
   },
 });
 
-// function createData(title) {
-//   return {
-//     title,
-//     history: [
-//       { date: 'Data retrived from Database', content: 'Content retrived from Database' },
-//     ],
-//   };
-// }
+function createData(title) {
+  return {
+    title,
+    history: [
+      { date: 'Data retrived from Database', content: 'Content retrived from Database' },
+    ],
+  };
+}
 
 function Row(props) {
   const { row } = props;
@@ -65,10 +66,10 @@ function Row(props) {
               <Typography variant="h6" gutterBottom component="div">
                 Content
               </Typography>
-              <Table size="small">
+              <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell component="th" scope="row">{row.post}</TableCell>
+                    <TableCell>{row.post}</TableCell>
                   </TableRow>
                 </TableHead>
               </Table>
@@ -92,13 +93,7 @@ Row.propTypes = {
   }).isRequired,
 };
 
-// const rows = [
-//   createData('title from db: Frozen yoghurt'),
-//   createData('title: Ice cream sandwich'),
-//   createData('title: Eclair'),
-//   createData('title: Cupcake'),
-//   createData('title: Gingerbread'),
-// ];
+const rows = JSON.parse(localStorage.getItem("userPublicPost"));
 
 export default function CollapsibleTable() {
   return (
@@ -110,7 +105,7 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {JSON.parse(localStorage["userPublicPost"]).map((row) => (
+          {rows.map((row) => (
             <Row key={row.name} row={row} />
           ))}
         </TableBody>
@@ -118,4 +113,3 @@ export default function CollapsibleTable() {
     </TableContainer>
   );
 }
-
