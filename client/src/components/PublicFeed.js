@@ -50,7 +50,7 @@ export default function SimpleCard() {
           <Avatar></Avatar>
           <Typography variant = "h6" component="h6" style = {{ textAlign: "Left", fontSize: "16px", marginLeft: "60px", marginTop: "-40px", marginBottom: "20px" }}> Nick-Name</Typography>
         <Typography variant="h5" component="h2" style = {{ textAlign: "left", fontSize: "20px"}}> 
-        {JSON.parse(localStorage["allposts"])[0].post}
+        Entry Title
         </Typography>
         <Typography variant="body2" component="p" style = {{ textAlign: "left", marginBottom: ""}}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
