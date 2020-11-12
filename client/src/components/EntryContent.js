@@ -45,27 +45,12 @@ export default function MultilineTextFields() {
       private: true,
     }
     sendPost(postInfo); 
-    getPrivatePosts(username)
-    getAllPosts()
+    getAllPublicPosts()
   }
 
-  const getAllPosts = () => {
+  const getAllPublicPosts = () => {
     posts()
     .then(res => localStorage.setItem("allposts", JSON.stringify(res.data)))
-  }
-
-  const getPublicPosts = () => {
-    userPublicPosts(username)
-    .then(res => {
-      localStorage.setItem("userPublicPost", JSON.stringify(res.data));
-    })
-  }
-
-  const getPrivatePosts = () => {
-    userPrivatePosts(username)
-    .then(res => {
-      localStorage.setItem("userPrivatePost", JSON.stringify(res.data));
-    })
   }
 
   const handlePublicPost = (e) => {
@@ -77,8 +62,7 @@ export default function MultilineTextFields() {
       private: false,
     }
     sendPost(postInfo); 
-    getPublicPosts(username)
-    getAllPosts()
+    getAllPublicPosts()
   }
 
   const handleDiscard = () => {
