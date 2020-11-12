@@ -33,8 +33,6 @@ export default function SimpleCard() {
       setRows(res.data)
       }
     })
-
-
   }, []);
 
   return (
