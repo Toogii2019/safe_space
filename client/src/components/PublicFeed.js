@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -22,21 +22,18 @@ const useStyles = makeStyles({
 });
 
 export default function SimpleCard() {
+  const [rows, setRows] = useState([]);
   const classes = useStyles();
   
   useEffect(() => { 
     posts()
-    .then(res => localStorage.setItem("allposts", JSON.stringify(res.data)))
+    .then(res => {
+      if (res.data !== null) {
+      localStorage.setItem("allposts", JSON.stringify(res.data))
+      setRows(res.data)
+      }
+    })
   }, []);
-
-  var rows = [];
-
-  if (JSON.parse(localStorage.getItem("allposts")) === null) {
-    rows = [];
-  }
-  else {
-    rows = JSON.parse(localStorage.getItem("allposts"));
-  };
 
   return (
     <div>
