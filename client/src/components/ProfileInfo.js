@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -27,7 +27,25 @@ const useStyles = makeStyles((theme) => ({
 
   
 export default function ImageAvatars() {
-    const classes = useStyles();
+  const [userInfo, setUserInfo] = useState({
+    nickname: "",
+    email: "",
+    numberOfPrivatePosts: 0,
+    numberOfPublicPosts: 1
+  })
+  const classes = useStyles();
+
+  const updateProfileInfo = () => {
+    setUserInfo({nickname: JSON.parse(localStorage.getItem("currentUser")).nickname, 
+                email: JSON.parse(localStorage.getItem("currentUser")).email,
+                numberOfPrivatePosts: JSON.parse(localStorage.getItem("userPrivatePost")).length,
+                numberOfPublicPosts: JSON.parse(localStorage.getItem("userPublicPost")).length 
+   })
+  }
+
+  useEffect(() => {
+    updateProfileInfo()
+    },[JSON.parse(localStorage.getItem("userPrivatePost")),JSON.parse(localStorage.getItem("userPublicPost"))]);
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -36,17 +54,17 @@ export default function ImageAvatars() {
         <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
         </div>
         <Typography variant="h5" component="h2">
-          {JSON.parse(localStorage.getItem("currentUser")).nickname}
+          {userInfo.nickname}
         </Typography>
         <Typography variant="body2" component="p">
-        {JSON.parse(localStorage.getItem("currentUser")).email}
+        {userInfo.email}
         </Typography>
         <Typography variant="body2" component="p">
 
-          Number of Public Posts : {JSON.parse(localStorage.getItem("userPublicPost")) !== null ? JSON.parse(localStorage.getItem("userPublicPost")).length : 0}
+          Number of Public Posts : {userInfo.numberOfPublicPosts}
         </Typography>
         <Typography variant="body2" component="p">
-          Number of Private Posts : {JSON.parse(localStorage.getItem("userPrivatePost")) !== null ? JSON.parse(localStorage.getItem("userPrivatePost")).length : 0}
+          Number of Private Posts : {userInfo.numberOfPrivatePosts}
         </Typography>
       </CardContent>
     </Card>

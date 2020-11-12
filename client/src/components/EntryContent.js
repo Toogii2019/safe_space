@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 export default function MultilineTextFields() {
   const username = JSON.parse(localStorage.getItem("currentUser")).email
   useEffect(() => {
-    // Update the document title using the browser API
     posts()
     .then(res =>
       localStorage.setItem("allposts", JSON.stringify(res.data)))
