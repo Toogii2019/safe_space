@@ -28,23 +28,16 @@ const useStyles = makeStyles((theme) => ({
   
 export default function ImageAvatars() {
   const [userInfo, setUserInfo] = useState({
-    nickname: "",
-    email: "",
-    numberOfPrivatePosts: 0,
-    numberOfPublicPosts: 1
+    nickname: JSON.parse(localStorage.getItem("currentUser")).nickname,
+    email: JSON.parse(localStorage.getItem("currentUser")).email,
+    numberOfPrivatePosts: JSON.parse(localStorage.getItem("userPrivatePost")).length,
+    numberOfPublicPosts: JSON.parse(localStorage.getItem("userPublicPost")).length 
   })
+
   const classes = useStyles();
 
-  const updateProfileInfo = () => {
-    setUserInfo({nickname: JSON.parse(localStorage.getItem("currentUser")).nickname, 
-                email: JSON.parse(localStorage.getItem("currentUser")).email,
-                numberOfPrivatePosts: JSON.parse(localStorage.getItem("userPrivatePost")).length,
-                numberOfPublicPosts: JSON.parse(localStorage.getItem("userPublicPost")).length 
-   })
-  }
-
   useEffect(() => {
-    updateProfileInfo()
+    // window.location.replace("/member");
     },[JSON.parse(localStorage.getItem("userPrivatePost")),JSON.parse(localStorage.getItem("userPublicPost"))]);
 
   return (
