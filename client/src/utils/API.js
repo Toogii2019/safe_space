@@ -6,3 +6,4 @@ export const posting = data => axios.post("/api/post", data);
 export const posts = () => axios.get("/api/posts");
 export const userPublicPosts = userEmail => axios.get("/api/posts/public/" + userEmail);
 export const userPrivatePosts = userEmail => axios.get("/api/posts/private/" + userEmail);
+export const allPosts = userEmail => axios.get('/api/allposts/' + userEmail);

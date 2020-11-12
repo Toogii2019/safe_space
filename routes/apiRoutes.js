@@ -61,6 +61,15 @@ module.exports = function (app) {
         });
     });
 
+    app.get('/api/allposts/:userEmail', (req, res) => {
+      PostsCollection.find({user: req.params.userEmail})
+      .then(posts => {
+          res.json(posts);
+          })
+          .catch(err => {
+          res.json(err);
+          });
+      });
 
   app.get('/api/posts/private/:userEmail', (req, res) => {
     PostsCollection.find({user: req.params.userEmail, private: true})
