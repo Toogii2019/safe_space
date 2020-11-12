@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
+  date: {
+    type: Date,
+    required: true
+  },
   user: {
     type: String,
     required: true

@@ -41,7 +41,7 @@ export default function ImageAvatars() {
 
   const classes = useStyles();
   useEffect(() => {
-    allPosts(userInfo.email)
+    allPosts(userInfo.nickname)
     .then(res => {
         if (res.data !== null) {
           console.log(res.data);

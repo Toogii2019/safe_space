@@ -25,15 +25,6 @@ const useRowStyles = makeStyles({
   },
 });
 
-// function createData(title) {
-//   return {
-//     title,
-//     history: [
-//       { date: 'Data retrived from Database', content: 'Content retrived from Database' },
-//     ],
-//   };
-// }
-
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
@@ -69,6 +60,7 @@ function Row(props) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
+                    <TableCell>{row.date}</TableCell>
                     <TableCell>{row.post}</TableCell>
                   </TableRow>
                 </TableHead>
@@ -93,11 +85,9 @@ Row.propTypes = {
   }).isRequired,
 };
 
-
-
 export default function CollapsibleTable() {
   const [rows, setRows] = useState([])
-  let username = JSON.parse(localStorage.getItem("currentUser")).email
+  let username = JSON.parse(localStorage.getItem("currentUser")).nickname;
   useEffect(() => {
     userPublicPosts(username)
     .then(res => {
@@ -117,7 +107,7 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+        {rows.sort(()=> (-1)).map((row) => (
             <Row key={row.name} row={row} />
           ))}
         </TableBody>
