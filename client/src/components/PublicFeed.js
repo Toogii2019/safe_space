@@ -38,7 +38,7 @@ export default function SimpleCard() {
   return (
     <div>
     <h2>See All Public Posts From Other Users</h2>
-    {rows.map((row) => (
+    {rows.sort(()=>(-1)).map((row) => (
     <Card className={classes.root}>
       <CardContent>
         <h4>{row.user}</h4>
