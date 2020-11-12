@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import {allPosts} from '../utils/API';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,15 +31,35 @@ export default function ImageAvatars() {
   const [userInfo, setUserInfo] = useState({
     nickname: JSON.parse(localStorage.getItem("currentUser")).nickname,
     email: JSON.parse(localStorage.getItem("currentUser")).email,
-    numberOfPrivatePosts: JSON.parse(localStorage.getItem("userPrivatePost")).length,
-    numberOfPublicPosts: JSON.parse(localStorage.getItem("userPublicPost")).length 
+    numberOfPrivatePosts: 0,
+    numberOfPublicPosts: 0 
   })
 
-  const classes = useStyles();
+  function checkPrivate(post) {
+    return post.private
+  }
 
+  const classes = useStyles();
   useEffect(() => {
-    // window.location.replace("/member");
-    },[JSON.parse(localStorage.getItem("userPrivatePost")),JSON.parse(localStorage.getItem("userPublicPost"))]);
+    allPosts(userInfo.email)
+    .then(res => {
+        if (res.data !== null) {
+          console.log(res.data);
+          let privatePostCount = 0;
+          let publicPostCount = 0;
+          for (let i=0;i<res.data.length;i++) {
+            if (res.data[i].private) {
+              privatePostCount ++;
+            }
+            else {
+              publicPostCount ++;
+            }
+          }
+          setUserInfo({...userInfo, numberOfPrivatePosts: privatePostCount, numberOfPublicPosts: publicPostCount});
+        }
+    });
+
+    },[]);
 
   return (
     <Card className={classes.root} variant="outlined">
