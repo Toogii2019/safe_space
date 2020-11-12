@@ -5,11 +5,9 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
-import {posting, posts, userPrivatePosts, userPublicPosts} from '../utils/API';
+import {posting, posts} from '../utils/API';
 
 const useStyles = makeStyles((theme) => ({
-
-  
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
@@ -24,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function MultilineTextFields() {
-  const username = JSON.parse(localStorage.getItem("currentUser")).email
   useEffect(() => {
     posts()
     .then(res =>
@@ -37,8 +34,9 @@ export default function MultilineTextFields() {
   const [postContent, setContent] = useState()
   
   const handlePrivatePost = (e) => {
-    let username = JSON.parse(localStorage.getItem("currentUser")).email;
+    let username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     let postInfo = {
+      date: new Date().toISOString(),
       user: username,
       title: postTitle,
       post: postContent,
@@ -54,8 +52,9 @@ export default function MultilineTextFields() {
   }
 
   const handlePublicPost = (e) => {
-    let username = JSON.parse(localStorage.getItem("currentUser")).email
+    let username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     let postInfo = {
+      date: new Date().toISOString(),
       user: username,
       title: postTitle,
       post: postContent,
@@ -81,7 +80,7 @@ export default function MultilineTextFields() {
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>
-        <h1>Enter New Entry</h1>
+        <h1>Enter New Post</h1>
         <TextField
           id="outlined-multiline-flexible"
           label="Enter Note Title"

@@ -61,8 +61,8 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/api/allposts/:userEmail', (req, res) => {
-      PostsCollection.find({user: req.params.userEmail})
+    app.get('/api/allposts/:nickname', (req, res) => {
+      PostsCollection.find({user: req.params.nickname})
       .then(posts => {
           res.json(posts);
           })
@@ -71,8 +71,8 @@ module.exports = function (app) {
           });
       });
 
-  app.get('/api/posts/private/:userEmail', (req, res) => {
-    PostsCollection.find({user: req.params.userEmail, private: true})
+  app.get('/api/posts/private/:nickname', (req, res) => {
+    PostsCollection.find({user: req.params.nickname, private: true})
     .then(posts => {
         res.json(posts);
         })
@@ -81,8 +81,8 @@ module.exports = function (app) {
         });
     });
 
-  app.get('/api/posts/public/:userEmail', (req, res) => {
-    PostsCollection.find({user: req.params.userEmail, private: false})
+  app.get('/api/posts/public/:nickname', (req, res) => {
+    PostsCollection.find({user: req.params.nickname, private: false})
     .then(posts => {
         res.json(posts);
         })
