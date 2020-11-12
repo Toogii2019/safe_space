@@ -1,5 +1,5 @@
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -96,22 +96,17 @@ Row.propTypes = {
 
 
 export default function CollapsibleTable() {
+  const [rows, setRows] = useState([])
   let username = JSON.parse(localStorage.getItem("currentUser")).email
   useEffect(() => {
     userPublicPosts(username)
     .then(res => {
       localStorage.setItem("userPublicPost", JSON.stringify(res.data));
+        if (JSON.parse(localStorage.getItem("userPublicPost")) !== null) {
+          setRows(JSON.parse(localStorage.getItem("userPublicPost")));
+        }
     })
     },[]);
-
-  var rows = [];
-  
-  if (JSON.parse(localStorage.getItem("userPublicPost")) === null) {
-    rows = [];
-  }
-  else {
-    rows = JSON.parse(localStorage.getItem("userPublicPost"));
-  };
 
   return (
     <TableContainer component={Paper}>
