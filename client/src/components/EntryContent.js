@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MultilineTextFields() {
+export default function MultilineTextFields(props) {
   useEffect(() => {
     posts()
     .then(res =>
@@ -48,7 +48,12 @@ export default function MultilineTextFields() {
 
   const getAllPublicPosts = () => {
     posts()
-    .then(res => localStorage.setItem("allposts", JSON.stringify(res.data)))
+    .then(res => {
+      localStorage.setItem("allposts", JSON.stringify(res.data));
+      // props.track(JSON.parse(localStorage.setItem("allposts", JSON.stringify(res.data))));
+      props.track([1,2,3]);
+    }
+    )
   }
 
   const handlePublicPost = (e) => {
@@ -61,7 +66,7 @@ export default function MultilineTextFields() {
       private: false,
     }
     sendPost(postInfo); 
-    getAllPublicPosts()
+    getAllPublicPosts();
   }
 
   const handleDiscard = () => {

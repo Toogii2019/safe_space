@@ -54,8 +54,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ScrollableTabsButtonAuto() {
+   
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [feedtracker, setfeed] = React.useState([]);
+  const myCustomProp = {
+    val: feedtracker,
+    setval: setfeed
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -83,7 +89,7 @@ export default function ScrollableTabsButtonAuto() {
         <ProfileGrid></ProfileGrid>
       </TabPanel>
       <TabPanel value={value} index={1}>
-       <EntryGrid></EntryGrid>
+       <EntryGrid trackfeed={myCustomProp}></EntryGrid>
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Notification></Notification>
