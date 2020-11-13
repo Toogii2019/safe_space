@@ -2,13 +2,22 @@
 * {
   box-sizing: border-box;
 }
+
 body {
-  background: #ACD9D1 !important;
-  min-height: 100vh;
-  display: flex;
-  font-weight: 400;
-  font-family: ‘Fira Sans’, sans-serif;
+  background-color: #C4D6D6;
 }
+
+.MuiBox-root {
+  background-image: url(./background.png);
+  margin: auto;
+}
+
+.MuiTabs-scroller {
+  border-radius: 15px 15px 0px 0px;
+  background-color: transparent;
+  width: 40%;
+}
+
 h1,h2,h3,h4,h5,h6,label,span {
   font-weight: 500;
   font-family: ‘Fira Sans’, sans-serif;
@@ -18,13 +27,24 @@ body, html, .App, #root, .auth-wrapper {
   height: 100%;
 }
 button {
-  background-color: #ACD9D1;
+  color: #212529;
+  background-color: #f8f9fa;
+  display: block;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  box-shadow: none;
+  float: right;
+}
+.navbar a {
+  color: black;
+  padding: 10px;
 }
 .navbar-light {
   background-color: #FFFFFF;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
 }
 .auth-wrapper {
+  background-image: url(./background.png);
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -40,7 +60,7 @@ button {
   transition: all .3s;
 }
 .auth-wrapper .form-control:focus {
-  border-color: #ACD9D1;
+  /* border-color: #ACD9D1; */
   box-shadow: none;
 }
 .auth-wrapper h3 {
@@ -63,9 +83,3 @@ button {
 .forgot-password a {
   color: #D1D1D1;
 }
-
-
-
-
-
-
