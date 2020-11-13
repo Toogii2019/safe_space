@@ -15,6 +15,9 @@ module.exports = function (app) {
       bcrypt.hash(body.password, salt, function(err, hash) {
         UsersCollection.create({nickname: body.nickname, email: body.email, password: hash}) 
         .then(newUser => {
+            let firstDate = new Date().toDateString().split(" ").slice(1,4).join(" ") + ", " + new Date().toLocaleTimeString()
+            NotificationCollection.create({owner: newUser.nickname, date: firstDate, user: "Safe Space", event: "Welcome to Safe Space", read: false})
+            .then()
             res.json(newUser);
           })
           .catch(err => {
@@ -42,12 +45,21 @@ module.exports = function (app) {
     });
 
   app.post("/api/post", ({body}, res) => {
+    console.log(body.date);
+    if (!body.post.private) {
+      UsersCollection.find({})
+      .then(users => {
+        for (let i=0; i<users.length;i++) {
+          if (users[i].nickname !== body.user) {
+              NotificationCollection.create({owner: users[i].nickname, date: body.date, user: body.user, event: "Posted Publicly", read: false})
+              .then()
+            }
+          }
+      })
+    }
+    
     PostsCollection.create(body) 
     .then(onepost => {
-        if (!onepost.private) {
-          NotificationCollection.create({date: onepost.date, user: onepost.user, event: "Posted Publicly", read: false})
-          .then()
-        }
         res.json(onepost);
         })
         .catch(err => {
@@ -95,8 +107,8 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/api/getpublicnotifications', (req, res) => {
-      NotificationCollection.find({})
+    app.get('/api/getpublicnotifications/:nickname', (req, res) => {
+      NotificationCollection.find({owner: req.params.nickname})
       .then(notifications => {
           res.json(notifications);
           })
@@ -104,5 +116,17 @@ module.exports = function (app) {
           res.json(err);
           });
       });
-    
+
+    app.put('/api/updatenotification/:nickname/:id', (req, res) => {
+      NotificationCollection.updateOne(
+        { _id : req.params.id, owner: req.params.nickname },
+        { $set: { read : true } }
+      )
+      .then(notification => {
+          res.json(notification);
+          })
+          .catch(err => {
+          res.json(err);
+          });
+      });
 };
