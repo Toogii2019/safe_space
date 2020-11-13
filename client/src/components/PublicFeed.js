@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleCard() {
+export default function SimpleCard(props) {
   const [rows, setRows] = useState([]);
   const classes = useStyles();
   
@@ -33,7 +33,7 @@ export default function SimpleCard() {
       setRows(res.data)
       }
     })
-  }, []);
+  }, [props.track]);
 
   return (
     <div>
