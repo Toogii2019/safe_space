@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { UsersCollection, PostsCollection } = require("../models");
+const { UsersCollection, PostsCollection, NotificationCollection } = require("../models");
 const bcrypt = require("bcryptjs");
 
 mongoose.connect(process.env.DBURI || "mongodb://localhost/lessondb", {
@@ -44,6 +44,10 @@ module.exports = function (app) {
   app.post("/api/post", ({body}, res) => {
     PostsCollection.create(body) 
     .then(onepost => {
+        if (!onepost.private) {
+          NotificationCollection.create({date: onepost.date, user: onepost.user, event: "Posted Publicly", read: false})
+          .then()
+        }
         res.json(onepost);
         })
         .catch(err => {
@@ -90,4 +94,15 @@ module.exports = function (app) {
         res.json(err);
         });
     });
+
+    app.get('/api/getpublicnotifications', (req, res) => {
+      NotificationCollection.find({})
+      .then(notifications => {
+          res.json(notifications);
+          })
+          .catch(err => {
+          res.json(err);
+          });
+      });
+    
 };

@@ -7,3 +7,4 @@ export const posts = () => axios.get("/api/posts");
 export const userPublicPosts = nickname => axios.get("/api/posts/public/" + nickname);
 export const userPrivatePosts = nickname => axios.get("/api/posts/private/" + nickname);
 export const allPosts = nickname => axios.get('/api/allposts/' + nickname);
+export const getPublicNotifications = () => axios.get('/api/getpublicnotifications/');

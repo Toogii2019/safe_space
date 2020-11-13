@@ -36,7 +36,7 @@ export default function MultilineTextFields() {
   const handlePrivatePost = (e) => {
     let username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     let postInfo = {
-      date: new Date().toISOString(),
+      date: new Date().toGMTString(),
       user: username,
       title: postTitle,
       post: postContent,
@@ -54,7 +54,7 @@ export default function MultilineTextFields() {
   const handlePublicPost = (e) => {
     let username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     let postInfo = {
-      date: new Date().toISOString(),
+      date: new Date().toGMTString(),
       user: username,
       title: postTitle,
       post: postContent,

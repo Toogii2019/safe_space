@@ -107,7 +107,7 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-        {rows.sort(()=> (-1)).map((row) => (
+        {rows && rows.sort(()=> (-1)).map((row) => (
             <Row key={row.name} row={row} />
           ))}
         </TableBody>
