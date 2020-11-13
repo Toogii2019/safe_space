@@ -43,7 +43,8 @@ export default function MultilineTextFields(props) {
       private: true,
     }
     sendPost(postInfo); 
-    getAllPublicPosts()
+    getAllPublicPosts();
+    handleDiscard();
   }
 
   const getAllPublicPosts = () => {
@@ -51,7 +52,7 @@ export default function MultilineTextFields(props) {
     .then(res => {
       localStorage.setItem("allposts", JSON.stringify(res.data));
       // props.track(JSON.parse(localStorage.setItem("allposts", JSON.stringify(res.data))));
-      props.track([1,2,3]);
+      
     }
     )
   }
@@ -67,6 +68,8 @@ export default function MultilineTextFields(props) {
     }
     sendPost(postInfo); 
     getAllPublicPosts();
+    props.track([1,2,3]);
+    handleDiscard();
   }
 
   const handleDiscard = () => {
