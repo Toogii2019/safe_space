@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const PostSchema = new Schema({
+const NotificationSchema = new Schema({
   date: {
     type: String,
     required: true
@@ -11,21 +11,18 @@ const PostSchema = new Schema({
     type: String,
     required: true
   },
-  title: {
+  event: {
     type: String,
     required: true
   },
-  post: {
-    type: String,
-    required: true
-  },
-  private: {
+  read: {
     type: Boolean,
-  }
+    required: true
+  },
 },
 
 );
 
-const PostsCollection = mongoose.model("PostsCollection", PostSchema);
+const NotificationCollection = mongoose.model("NotificationCollection", NotificationSchema);
 
-module.exports = PostsCollection;
+module.exports = NotificationCollection;
