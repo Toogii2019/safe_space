@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MultilineTextFields(props) {
+export default function MultilineTextFields() {
   useEffect(() => {
     posts()
     .then(res =>
@@ -36,40 +36,32 @@ export default function MultilineTextFields(props) {
   const handlePrivatePost = (e) => {
     let username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     let postInfo = {
-      date: new Date().toDateString().split(" ").slice(1,4).join(" ") + ", " + new Date().toLocaleTimeString(),
+      date: new Date().toISOString(),
       user: username,
       title: postTitle,
       post: postContent,
       private: true,
     }
     sendPost(postInfo); 
-    getAllPublicPosts();
-    handleDiscard();
+    getAllPublicPosts()
   }
 
   const getAllPublicPosts = () => {
     posts()
-    .then(res => {
-      localStorage.setItem("allposts", JSON.stringify(res.data));
-      // props.track(JSON.parse(localStorage.setItem("allposts", JSON.stringify(res.data))));
-      
-    }
-    )
+    .then(res => localStorage.setItem("allposts", JSON.stringify(res.data)))
   }
 
   const handlePublicPost = (e) => {
     let username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     let postInfo = {
-      date: new Date().toDateString().split(" ").slice(1,4).join(" ") + ", " + new Date().toLocaleTimeString(),
+      date: new Date().toISOString(),
       user: username,
       title: postTitle,
       post: postContent,
       private: false,
     }
     sendPost(postInfo); 
-    getAllPublicPosts();
-    props.track([1,2,3]);
-    handleDiscard();
+    getAllPublicPosts()
   }
 
   const handleDiscard = () => {
@@ -86,7 +78,7 @@ export default function MultilineTextFields(props) {
   }
 
   return (
-    <form className={classes.root} noValidate autoComplete="off" id = "newEntry">
+    <form className={classes.root} noValidate autoComplete="off" >
       <div>
         <h1>Enter New Post</h1>
         <TextField

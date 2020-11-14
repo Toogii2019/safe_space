@@ -5,11 +5,13 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Avatar from './Avatar';
-import {posts} from '../utils/API'
+import {posts} from '../utils/API';
+
 
 const useStyles = makeStyles({
   root: {
-    width: "95%",
+    width: "80%",
+    marginLeft: "5%",
     marginTop: "2%",
     position: "relative" ,
     display: "inline-block"
@@ -35,10 +37,10 @@ export default function SimpleCard(props) {
   }, [props.track]);
 
   return (
-    <div>
+    <div class = "feedinfo">
     <h2>Public Feed</h2>
     {rows && rows.sort(()=>(-1)).map((row) => (
-    <Card className={classes.root}>
+    <Card className={classes.root} id ="roww">
       <CardContent>
         <h4 class = "userNamee">{row.user}</h4>
         <Typography variant="h5" component="h2" style = {{ textAlign: "left", fontSize: "20px"}}> 
