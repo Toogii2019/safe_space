@@ -5,17 +5,23 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import {allPosts} from '../utils/API';
+import { pink } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 275,
-    display: 'flex',
+    width: "600px",
+    paddingTop: "15px",
+    minHeight: "150px",
+    margin: '0px',
+    display: "flex",
+    lineHeight: "0.5",
       '& > *': {
         margin: theme.spacing(1),
       },
  },
   title: {
     fontSize: 14,
+    textAlign: 'left',
   },
   pos: {
     marginBottom: 12,
@@ -62,23 +68,19 @@ export default function ImageAvatars() {
     },[]);
 
   return (
-    <Card className={classes.root} variant="outlined">
+    <Card className={classes.root}>
       <CardContent>
         {/* <div className={classes.root}>
         <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
         </div> */}
-        <Typography variant="h5" component="h2">
-          {userInfo.nickname}
-        </Typography>
-        <Typography variant="body2" component="p">
-        {userInfo.email}
-        </Typography>
-        <Typography variant="body2" component="p">
-
-          Number of Public Posts : {userInfo.numberOfPublicPosts}
-        </Typography>
-        <Typography variant="body2" component="p">
-          Number of Private Posts : {userInfo.numberOfPrivatePosts}
+        <Typography variant="body2" component="column" class="postnumbers" style={{}}>
+        <div class="container">
+        <div class="row"> 
+          <div class="col-sm naming"><h1 class = "nickname">{userInfo.nickname}</h1><br></br>{userInfo.email}</div>
+          <div class="col-sm count"><h2 class = "counting">{userInfo.numberOfPublicPosts}</h2> <br></br> Public Posts </div>
+          <div class="col-sm count"><h2 class = "counting">{userInfo.numberOfPrivatePosts}</h2> <br></br> Private Posts </div>
+        </div>
+        </div>
         </Typography>
       </CardContent>
     </Card>

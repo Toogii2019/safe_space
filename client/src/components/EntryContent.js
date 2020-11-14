@@ -86,7 +86,7 @@ export default function MultilineTextFields(props) {
   }
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form className={classes.root} noValidate autoComplete="off" id = "newEntry">
       <div>
         <h1>Enter New Post</h1>
         <TextField

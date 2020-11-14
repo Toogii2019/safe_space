@@ -9,8 +9,7 @@ import {posts} from '../utils/API'
 
 const useStyles = makeStyles({
   root: {
-    width: "80%",
-    marginLeft: "5%",
+    width: "95%",
     marginTop: "2%",
     position: "relative" ,
     display: "inline-block"
@@ -37,11 +36,11 @@ export default function SimpleCard(props) {
 
   return (
     <div>
-    <h2>See All Public Posts From Other Users</h2>
+    <h2>Public Feed</h2>
     {rows && rows.sort(()=>(-1)).map((row) => (
     <Card className={classes.root}>
       <CardContent>
-        <h4>{row.user}</h4>
+        <h4 class = "userNamee">{row.user}</h4>
         <Typography variant="h5" component="h2" style = {{ textAlign: "left", fontSize: "20px"}}> 
           {row.title}
         </Typography>

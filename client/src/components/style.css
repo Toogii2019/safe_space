@@ -8,3 +8,51 @@
     display: flex;
     align-items: center;
   }
+  .MuiCardContent-root {
+    width: 600px;
+    
+  }
+  .count {
+    text-align: center;
+  }
+  .naming {
+    margin-top: -10px;
+  }
+  @media screen and (max-width: 575px) {
+    .count {
+      max-width: 130px;
+      padding-top: 10px; 
+      margin-Left: auto;
+      margin-right: auto;
+      text-align: center;}
+    .counting {
+      font-size: 25px;
+    }
+    .nickname {
+      font-size: 35px;
+      margin-top: -10px;
+    }
+    .naming {
+      text-align: center;
+    }
+  }
+@media screen and (max-width: 900px) {
+
+    #entrygrid, #newEntry, #entryy{
+      display: none;
+    }
+    #feedgrid, #publicgrid {
+      width: 1200px;
+      min-width: 500px;
+      display: flex;
+      
+    }
+}
+.userNamee {
+  text-align: center;
+}
+.MuiCardContent-root {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
