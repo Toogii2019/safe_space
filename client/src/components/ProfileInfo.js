@@ -5,8 +5,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import {allPosts} from '../utils/API';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,7 +67,6 @@ export default function ImageAvatars() {
         {/* <div className={classes.root}>
         <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
         </div> */} 
-        <EditIcon></EditIcon>
         <Typography variant="h5" component="h2">
           {userInfo.nickname}
         </Typography>
