@@ -32,7 +32,6 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
   const username = JSON.parse(localStorage.getItem("currentUser")).email
-
   // useEffect(() => {
   //   // Update the document title using the browser API
   //   userPublicPosts(username)
@@ -88,6 +87,7 @@ Row.propTypes = {
     title: PropTypes.string.isRequired,
   }).isRequired,
 };
+
 
 export default function CollapsibleTable() {
   const [rows, setRows] = useState([])
