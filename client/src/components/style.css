@@ -1,10 +1,79 @@
 .chat-header {
-    width: 100%;
-    height: 70px;
-    border-bottom: none;
-    background-color: #fff;
-    border-radius: 7px 7px 0 0;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
+  width: 100%;
+  height: 70px;
+  border-bottom: none;
+  background-color: #fff;
+  border-radius: 7px 7px 0 0;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+}
+.MuiCardContent-root {
+  width: 600px;
+  
+}
+.count {
+  text-align: center;
+}
+.naming {
+  margin-top: -10px;
+}
+@media screen and (max-width: 575px) {
+  .count {
+    max-width: 130px;
+    padding-top: 10px; 
+    margin-Left: auto;
+    margin-right: auto;
+    text-align: center;}
+  .counting {
+    font-size: 25px;
   }
+  .nickname {
+    font-size: 35px;
+    margin-top: -10px;
+  }
+  .naming {
+    text-align: center;
+  }
+}
+/*@media screen and (max-width: 900px) {
+  #entryy{
+    display: none;
+  }
+  
+  #feedgrid  {
+    width: 100%;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .MuiCardContent-root {
+    margin-left: auto;
+    margin-right: auto;
+    display: flexbox;
+  }
+  .feedinfo {
+    max-width: 90%;
+  }
+  #publicgrid {
+    width: 100%;
+    font-display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #roww {
+    display: inline-flex;
+    width: 100%;
+  }
+  .MuiTypography-body1 {
+    margin-left: auto;
+    margin-right: auto;
+  } 
+} */
+.userNamee {
+text-align: center;
+}
+.MuiCardContent-root {
+width: 100%;
+}
