@@ -47,6 +47,7 @@ export default function SimpleCard(props) {
         </Typography>
         <Typography variant="body2" component="p" style = {{ textAlign: "left", marginBottom: ""}}>
         {row.post} 
+        {row.date}
         </Typography>
       </CardContent> 
     </Card> 
