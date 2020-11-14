@@ -104,8 +104,8 @@ export default function ScrollableTabsButtonAuto() {
         > 
           <Tab to={'/profile'} label="Profile" {...a11yProps(0)} />
           <Tab to={'/publicfeed'} label="Public Feed" {...a11yProps(1)} />
-          <Tab to={'/notification'} label={"Notification " + unreadNotifications}  {...a11yProps(2)} />
-          <Tab to={'/message'} label="Message" {...a11yProps(3)} />
+          <Tab to={'/notification'} label={"Notifications (" +unreadNotifications+ ")" }  {...a11yProps(2)} />
+          <Tab to={'/message'} label="Messages" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
