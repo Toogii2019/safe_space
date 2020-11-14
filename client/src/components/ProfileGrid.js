@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import ProfileInfo from './ProfileInfo';
 import TablePublic from './TablePublic';
 import TablePrivate from './TablePrivate';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,7 +15,15 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    padding: '0px',
   },
+  portfolio: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    maxWidth: "600px",
+    display: "flex",
+    minHeight: "150px"
+  }
 }));
 
 export default function CenteredGrid() {
@@ -24,7 +33,7 @@ export default function CenteredGrid() {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}><ProfileInfo></ProfileInfo></Paper>
+          <Paper className={classes.portfolio}><ProfileInfo></ProfileInfo></Paper>
         </Grid>
         <Grid item xs={12}>
             <h1>Postings</h1>
