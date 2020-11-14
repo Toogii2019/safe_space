@@ -106,3 +106,5 @@ dist
 
 package-lock.json
 build/*
+client/node_modules/*
+node_modules/*
