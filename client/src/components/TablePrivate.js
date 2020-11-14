@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
@@ -48,7 +49,8 @@ function Row(props) {
               <Typography variant="h6" gutterBottom component="div">
                 Content
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size="small" aria-label="private">
+                <DeleteIcon></DeleteIcon>
                 <TableHead>
                 <TableBody>
                   <TableRow>

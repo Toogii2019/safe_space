@@ -66,7 +66,7 @@ export default function ImageAvatars() {
       <CardContent>
         {/* <div className={classes.root}>
         <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
-        </div> */}
+        </div> */} 
         <Typography variant="h5" component="h2">
           {userInfo.nickname}
         </Typography>
@@ -80,6 +80,7 @@ export default function ImageAvatars() {
         <Typography variant="body2" component="p">
           Number of Private Posts : {userInfo.numberOfPrivatePosts}
         </Typography>
+       
       </CardContent>
     </Card>
   );

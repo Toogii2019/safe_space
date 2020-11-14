@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Table from '@material-ui/core/Table';
@@ -30,14 +31,7 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
   const username = JSON.parse(localStorage.getItem("currentUser")).email
-
-  useEffect(() => {
-    // Update the document title using the browser API
-    userPublicPosts(username)
-    .then(res =>
-      localStorage.setItem("userPublicPost", JSON.stringify(res.data)))
-    },[]);
-
+  
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
@@ -57,7 +51,8 @@ function Row(props) {
               <Typography variant="h6" gutterBottom component="div">
                 Content
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size="small" aria-label="public">
+                <DeleteIcon></DeleteIcon>
                 <TableHead>
                   <TableRow>
                     <TableCell>{row.date}</TableCell>
@@ -84,6 +79,7 @@ Row.propTypes = {
     title: PropTypes.string.isRequired,
   }).isRequired,
 };
+
 
 export default function CollapsibleTable() {
   const [rows, setRows] = useState([])
