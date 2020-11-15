@@ -1,6 +1,9 @@
 import React from 'react';
 import MessageList from './MessageList';
 import PropTypes from 'prop-types';
+import io from 'socket.io-client'
+
+const socket = io.connect("http://localhost:4000")
 
 class Chat extends React.Component {
   constructor(props) {
@@ -8,10 +11,17 @@ class Chat extends React.Component {
     this.state = {
       message: '',
       user: '',
+      chat: [],
     };
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const {user, message, chat} = this.state
+    socket.on('message', ({ user, message }) => {
+      this.setState([...chat, { user, message }])
+    })
+
+
     if (prevState.message !== this.state.message && this.props.typingListener) {
       this.props.typingListener();
     }
@@ -20,15 +30,15 @@ class Chat extends React.Component {
 
   handleSendMessage = event => {
     event.preventDefault();
-    this.setState({...this.state, user: this.props.receiver})
+    this.setState({ user: this.props.receiver})
     const {message, user} = this.state;
-
-
-
-    console.log(message, this.props.receiver)
-
-
     
+    // Socket part
+    socket.emit('message', { user, message })
+    this.setState({ message: '', user })
+    console.log(this.state.chat);
+
+    // Socket part
 
 
 
@@ -50,7 +60,7 @@ class Chat extends React.Component {
               <div className='msg-page'>
                 <MessageList
                   isLoading={isLoading}
-                  messages={messages} 
+                  messages={this.state.chat} 
                   user={user}
                   renderMessage={renderMessage}
                 />

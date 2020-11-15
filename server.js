@@ -3,9 +3,11 @@ const path = require("path");
 const PORT = process.env.PORT || 3001;
 const CHAT_PORT = process.env.CHAT_PORT || 4000;
 const app = express();
-const socketio = require('socket.io');
 const http = require('http');
 const server = http.createServer(app);
+const socketio = require('socket.io')
+
+
 const io = socketio(server);
 // require('./seeders/messageSeed');
 
@@ -29,15 +31,12 @@ app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 });
 
-
-io.on('connection', (socket) => {
-  console.log('New User Has Connected')
-  socket.emit('Your id', socket.id) // grabs id and emits is back to user. Id can then be stored in state
-  socket.on('send message', body => {
-    io.emit('message', body)
-  })    //obect that contains message text and id of sender
-  socket.on('disconnect', () => {
-    console.log('User has disconnected')
+// socketio.adapter(redis({ host: 'localhost', port: 3000}));
+io.on('connection', socket => {
+  
+  socket.on('message', ({name, message}) => {
+    console.log(name, message)
+    io.emit('message', {name, message})
   })
 })
 
