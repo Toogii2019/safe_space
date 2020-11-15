@@ -27,18 +27,16 @@ export default function FullWidthGrid() {
   const classes = useStyles();
 
   const [chatBuddy, setChatBuddy] = useState()
+  const [searchedUser, setSearchedUser] = useState("")
 
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={10}>
-          <Paper className={classes.paper}><MessageSearch></MessageSearch></Paper>
-        </Grid>
-        <Grid item xs={12} sm={2}>
-          <Paper className={classes.paper}><MessageSearchBtn></MessageSearchBtn></Paper>
+          <Paper className={classes.paper}><MessageSearch setSearchedUser={setSearchedUser}></MessageSearch></Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}><h2>Select Your Chat Buddy</h2><p style={{color: "green"}}><b>Only you and your chat buddy can see each other's messages</b></p><ChatList chatSetter={setChatBuddy}></ChatList></Paper>
+          <Paper className={classes.paper}><h2>Select Your Chat Buddy</h2><p style={{color: "green"}}><b>Only you and your buddy can see each other's messages</b></p><ChatList chatSetter={setChatBuddy} searchedUser={searchedUser}></ChatList></Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}><ChatWindow chatGetter={chatBuddy} chatSetter={setChatBuddy}></ChatWindow></Paper>

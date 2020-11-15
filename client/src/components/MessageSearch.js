@@ -11,12 +11,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BasicTextFields() {
-    const classes = useStyles();
+export default function BasicTextFields(props) {
+  const classes = useStyles();
+  const handleChange = (e) => {
+    props.setSearchedUser(e.target.value);
+  }
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      <TextField id="outlined-basic" label="Search for Username" variant="outlined" />
+      <TextField id="outlined-basic" label="Search for Username" onChange={handleChange} variant="outlined" />
     </form>
   );
 }

@@ -43,11 +43,15 @@ export default function AlignItemsList(props) {
     props.chatSetter(e.target.textContent);
   }
 
+  const filteredUsers = users.filter(user => {
+    return user.nickname.toLowerCase().indexOf(props.searchedUser.toLowerCase()) !== -1
+  })
+
   return (
     <List className={classes.root}>
       <Divider variant="inset" component="li" />
 
-    {users && users.map((user) => (
+    {filteredUsers && filteredUsers.map((user) => (
 
       <ListItem alignItems="flex-start" style={{color: "#1c3131"}}>
         <ListItemAvatar>
