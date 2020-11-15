@@ -2,6 +2,7 @@ import React from 'react';
 import MessageList from './MessageList';
 import PropTypes from 'prop-types';
 import io from 'socket.io-client'
+import defaultAvatar from './ironman.jpg';
 
 
 const socket = io.connect("http://localhost:4000")
@@ -15,19 +16,23 @@ class Chat extends React.Component {
     };
   }
 
-
+  componentDidMount() {
+    console.log(this.props.receiver);
+  }
 
   componentDidUpdate(prevProps, prevState) {
     
     const {message, user, chat} = this.state
     
-    socket.on('message', ({ user, message }) => {
+    socket.on('message', ({ user, msgObj }) => {
       // this.setState([...chat, { user, message }])
-      this.setState({chat: [...chat, {user, message}]})
+        if (user === JSON.parse(localStorage.getItem("currentUser")).nickname || 
+        msgObj.sender.name === JSON.parse(localStorage.getItem("currentUser")).nickname) {
+          this.setState({chat: [...chat, msgObj]})
+        }
     })
 
-
-    if (prevState.message !== this.state.message && this.props.typingListener) {
+    if (prevState.message !== this.state.message && this.props.typingListener ) {
       this.props.typingListener();
     }
     this.scrollToBottom();
@@ -39,13 +44,24 @@ class Chat extends React.Component {
     this.setState({ user: this.props.receiver})
     const {message} = this.state;
     const user = this.props.receiver;
-    // Socket part
+    // Socket part start
     console.log(user, message)
-    socket.emit('message', { user, message })
-    this.setState({ message: '', user })
-    console.log(this.state.chat);
 
-    // Socket part
+    let msgObj =
+      {
+        "text": this.state.message,
+        "id": this.state.chat[this.state.chat.length - 1] + 1,
+        "sender": {
+          "name": JSON.parse(localStorage.getItem("currentUser")).nickname,
+          "uid": JSON.parse(localStorage.getItem("currentUser")).nickname,
+          "avatar": defaultAvatar,
+        },
+      }
+
+    socket.emit('message', { user, msgObj })
+    this.setState({ message: '', user })
+
+    // Socket part end
 
 
 
@@ -67,7 +83,7 @@ class Chat extends React.Component {
               <div className='msg-page'>
                 <MessageList
                   isLoading={isLoading}
-                  messages={messages} 
+                  messages={this.state.chat} 
                   user={user}
                   renderMessage={renderMessage}
                 />

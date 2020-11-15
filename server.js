@@ -36,9 +36,8 @@ app.listen(PORT, () => {
 
 // socketio.adapter(redis({ host: 'localhost', port: 3000}));
 io.on('connection', socket => {
-  socket.on('message', ({user, message}) => {
-    console.log(user, message)
-    io.emit('message', {user, message})
+  socket.on('message', ({user, msgObj}) => {
+    io.emit('message', {user, msgObj})
   })
 })
 

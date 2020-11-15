@@ -26,7 +26,8 @@ export default function AlignItemsList(props) {
   const [users, setUsers] = useState([])
 
   useEffect(() => {
-    getUsers()
+    const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
+    getUsers(username)
     .then(res => setUsers(res.data))
   })
 
@@ -41,8 +42,8 @@ export default function AlignItemsList(props) {
 
 
 
-    {users && users.map((user) => 
-
+    {users && users.map((user) => (
+      
       <ListItem alignItems="flex-start" >
         <ListItemAvatar>
           <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
@@ -65,11 +66,8 @@ export default function AlignItemsList(props) {
         
       </ListItem>
 
-      
-)}
-
-
-      
+    )
+    )} 
     </List>
   );
 }

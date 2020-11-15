@@ -38,7 +38,7 @@ export default function FullWidthGrid() {
           <Paper className={classes.paper}><MessageSearchBtn></MessageSearchBtn></Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}><h2>User List</h2><ChatList chatSetter={setChatBuddy}></ChatList></Paper>
+          <Paper className={classes.paper}><h2>Select Your Chat Buddy</h2><ChatList chatSetter={setChatBuddy}></ChatList></Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}><ChatWindow chatGetter={chatBuddy}></ChatWindow></Paper>
