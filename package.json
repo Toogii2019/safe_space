@@ -4,7 +4,7 @@
   "description": "Mern Demo",
   "main": "server.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start": "nodemon node index.js",
     "start:prod": "node server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && npm run start",
@@ -28,6 +28,6 @@
     "react-md-spinner": "^1.0.0",
     "react-router-dom": "^5.2.0",
     "redis": "^3.0.2",
-    "socket.io": "^3.0.1"
+    "socket.io": "^1.0.0"
   }
 }

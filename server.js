@@ -18,7 +18,10 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 require('./routes/apiRoutes')(app);
 require('./routes/htmlRoutes')(app);
 
@@ -33,10 +36,9 @@ app.listen(PORT, () => {
 
 // socketio.adapter(redis({ host: 'localhost', port: 3000}));
 io.on('connection', socket => {
-  
-  socket.on('message', ({name, message}) => {
-    console.log(name, message)
-    io.emit('message', {name, message})
+  socket.on('message', ({user, message}) => {
+    console.log(user, message)
+    io.emit('message', {user, message})
   })
 })
 

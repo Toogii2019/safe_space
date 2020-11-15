@@ -3,8 +3,8 @@ import MessageList from './MessageList';
 import PropTypes from 'prop-types';
 import io from 'socket.io-client'
 
-const socket = io.connect("http://localhost:4000")
 
+const socket = io.connect("http://localhost:4000")
 class Chat extends React.Component {
   constructor(props) {
     super(props);
@@ -15,10 +15,15 @@ class Chat extends React.Component {
     };
   }
 
+
+
   componentDidUpdate(prevProps, prevState) {
-    const {user, message, chat} = this.state
+    
+    const {message, user, chat} = this.state
+    
     socket.on('message', ({ user, message }) => {
-      this.setState([...chat, { user, message }])
+      // this.setState([...chat, { user, message }])
+      this.setState({chat: [...chat, {user, message}]})
     })
 
 
@@ -29,11 +34,13 @@ class Chat extends React.Component {
   }
 
   handleSendMessage = event => {
+    
     event.preventDefault();
     this.setState({ user: this.props.receiver})
-    const {message, user} = this.state;
-    
+    const {message} = this.state;
+    const user = this.props.receiver;
     // Socket part
+    console.log(user, message)
     socket.emit('message', { user, message })
     this.setState({ message: '', user })
     console.log(this.state.chat);
@@ -60,7 +67,7 @@ class Chat extends React.Component {
               <div className='msg-page'>
                 <MessageList
                   isLoading={isLoading}
-                  messages={this.state.chat} 
+                  messages={messages} 
                   user={user}
                   renderMessage={renderMessage}
                 />
