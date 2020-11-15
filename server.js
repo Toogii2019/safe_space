@@ -41,6 +41,6 @@ io.on('connection', socket => {
   })
 })
 
-server.listen(CHAT_PORT, function() {
-  console.log(`Chat service is running on ${CHAT_PORT}`)
-})
+// server.listen(CHAT_PORT, function() {
+//   console.log(`Chat service is running on ${CHAT_PORT}`)
+// })

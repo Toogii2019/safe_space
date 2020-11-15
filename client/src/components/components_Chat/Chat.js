@@ -5,7 +5,7 @@ import io from 'socket.io-client'
 import defaultAvatar from './ironman.jpg';
 
 
-const socket = io.connect("http://localhost:4000")
+const socket = io.connect("https://safe-space-chat-service.herokuapp.com")
 class Chat extends React.Component {
   constructor(props) {
     super(props);
