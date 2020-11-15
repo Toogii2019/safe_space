@@ -8,52 +8,17 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: [],
       user: {},
     };
   }
 
   componentDidMount() {
 
-
-
-    const messages = [
-      {
-        "text": "Hello there",
-        "id": "1",
-        "sender": {
-          "name": "Ironman",
-          "uid": "user1",
-          "avatar": "https://icon-library.net/icon/iron-man-icon-21.html",
-        },
-      },
-      {
-        "text": "Hi Mr. Stark",
-        "id": "2",
-        "sender": {
-          "name": "Spiderman",
-          "uid": "user2",
-          "avatar": "https://data.cometchat.com/assets/images/avatars/spiderman.png",
-        },
-      },
-      {
-        "text": "Hello Spiderman, how are you today?",
-        "id": "3",
-        "sender": {
-          "name": "Ironman",
-          "uid": "user1",
-          "avatar": "https://data.cometchat.com/assets/images/avatars/ironman.png",
-        },
-      },
-    ];
-
     const user = {
-      "uid": "user1"
+      "uid": JSON.parse(localStorage.getItem("currentUser")).nickname
     };
 
-    
-
-    this.setState({ messages: messages, user: user });
+    this.setState({ user: user });
 
   }
 
@@ -63,7 +28,7 @@ class App extends React.Component {
         <div className='chat-header'>
           {this.props.chatGetter ? <h5 style={{color: "blue"}}>You are sending privately to {this.props.chatGetter} </h5>: <h5 style={{color: "red"}}>Please choose your friend to send message privately!</h5>}
         </div>
-        <ChatBox messages={this.state.messages} receiver={this.props.chatGetter} />
+        <ChatBox receiver={this.props.chatGetter} user={this.state.user} />
       </div>
     )
   }

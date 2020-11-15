@@ -79,36 +79,36 @@ class Chat extends React.Component {
     let {message} = this.state;
 
     return (
-            <div className='chat-box'>
-              <div className='msg-page'>
-                <MessageList
-                  isLoading={isLoading}
-                  messages={this.state.chat} 
-                  user={user}
-                  renderMessage={renderMessage}
-                />
-                <div className='chat-box-bottom'>
-                  { this.props.typingIndicator?this.props.typingIndicator:'' }
-                  <div id='end-of-chat'></div>
-                </div>
-              </div>
-              <div className='msg-footer'>
-                <form
-                  className='message-form'
-                  onSubmit={this.handleSendMessage}>
-                  <div className='input-group'>
-                    <input
-                      type='text'
-                      className='form-control message-input'
-                      placeholder='Type something'
-                      value={message}
-                      onChange={event => this.setState({ message: event.target.value})}
-                      required
-                    />
-                  </div>
-                </form>
-              </div>
+      <div className='chat-box'>
+        <div className='msg-page'>
+          <MessageList
+            isLoading={isLoading}
+            messages={this.state.chat} 
+            user={user}
+            renderMessage={renderMessage}
+          />
+          <div className='chat-box-bottom'>
+            { this.props.typingIndicator?this.props.typingIndicator:'' }
+            <div id='end-of-chat'></div>
+          </div>
+        </div>
+        <div className='msg-footer'>
+          <form
+            className='message-form'
+            onSubmit={this.handleSendMessage}>
+            <div className='input-group'>
+              <input
+                type='text'
+                className='form-control message-input'
+                placeholder='Type something'
+                value={message}
+                onChange={event => this.setState({ message: event.target.value})}
+                required
+              />
             </div>
+          </form>
+        </div>
+      </div>
     );
   }
 }
