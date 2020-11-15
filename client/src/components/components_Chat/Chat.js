@@ -21,13 +21,13 @@ class Chat extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    
+    const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     const {message, user, chat} = this.state
     
     socket.on('message', ({ user, msgObj }) => {
       // this.setState([...chat, { user, message }])
-        if (user === JSON.parse(localStorage.getItem("currentUser")).nickname || 
-        msgObj.sender.name === JSON.parse(localStorage.getItem("currentUser")).nickname) {
+        
+        if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
           this.setState({chat: [...chat, msgObj]})
         }
     })
