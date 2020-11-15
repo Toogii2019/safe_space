@@ -14,6 +14,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+
+
+
     const messages = [
       {
         "text": "Hello there",
@@ -48,6 +51,8 @@ class App extends React.Component {
       "uid": "user1"
     };
 
+    
+
     this.setState({ messages: messages, user: user });
 
   }
@@ -58,7 +63,7 @@ class App extends React.Component {
         <div className='chat-header'>
           <h5>Messages</h5>
         </div>
-        <ChatBox messages={this.state.messages} />
+        <ChatBox messages={this.state.messages} receiver={this.props.chatGetter} />
       </div>
     )
   }

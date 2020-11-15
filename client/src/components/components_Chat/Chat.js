@@ -7,6 +7,7 @@ class Chat extends React.Component {
     super(props);
     this.state = {
       message: '',
+      user: '',
     };
   }
 
@@ -19,8 +20,19 @@ class Chat extends React.Component {
 
   handleSendMessage = event => {
     event.preventDefault();
-    const {message} = this.state;
-    this.props.onSubmit(message);
+    this.setState({...this.state, user: this.props.receiver})
+    const {message, user} = this.state;
+
+
+
+    console.log(message, this.props.receiver)
+
+
+    
+
+
+
+    // this.props.onSubmit(message);
     this.setState({message: ''});
   };
 

@@ -129,4 +129,17 @@ module.exports = function (app) {
           res.json(err);
           });
       });
+
+      app.get("/api/getallusers", (req, res) => {
+        UsersCollection.find({}) 
+        .then(users => {
+            res.json(users)
+          })
+          .catch(err => {
+            res.json(null);
+          });
+        });
+
+
+      
 };
