@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import {userPrivatePosts} from '../utils/API';
+import {userPrivatePosts, deletePost} from '../utils/API';
 
 const useRowStyles = makeStyles({
   root: {
@@ -25,11 +25,21 @@ const useRowStyles = makeStyles({
   },
 });
 
+
+
 function Row(props) {
-  const { row } = props;
+  const { row, id, trackpost } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
- 
+
+  const handleDeletePost = () => {
+    deletePost(String(id))
+    .then(res => {
+      console.log(res.data);
+      trackpost([])
+    })
+  }
+
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
@@ -50,7 +60,7 @@ function Row(props) {
                 Content
               </Typography>
               <Table size="small" aria-label="private">
-                <DeleteIcon></DeleteIcon>
+                <DeleteIcon onClick={handleDeletePost} style={{cursor: "pointer"}}></DeleteIcon>
                 <TableHead>
                 <TableBody>
                   <TableRow>
@@ -80,11 +90,10 @@ Row.propTypes = {
   }).isRequired,
 };
 
-
-
 export default function CollapsibleTable() {
   const [rows, setRows] = useState([]);
-  let username = JSON.parse(localStorage.getItem("currentUser")).nickname;
+  const [trackPostDelete, settrackPostDelete] = useState([])
+  const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
 
   useEffect(() => {
     userPrivatePosts(username)
@@ -94,8 +103,8 @@ export default function CollapsibleTable() {
           setRows(JSON.parse(localStorage.getItem("userPrivatePost")));
         }
     })
-    },[]);
-  
+    },
+    [trackPostDelete]);
 
   return (
     <TableContainer component={Paper}>
@@ -107,7 +116,7 @@ export default function CollapsibleTable() {
         </TableHead>
         <TableBody>
         {rows && rows.sort(()=> (-1)).map((row) => (
-            <Row key={row.name} row={row} />
+            <Row key={row.id} row={row} id={row._id} trackpost={settrackPostDelete} />
           ))}
         </TableBody>
       </Table>

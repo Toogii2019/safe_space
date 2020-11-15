@@ -16,7 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import {userPublicPosts} from '../utils/API';
+import {userPublicPosts, deletePost} from '../utils/API';
 
 const useRowStyles = makeStyles({
   root: {
@@ -27,11 +27,19 @@ const useRowStyles = makeStyles({
 });
 
 function Row(props) {
-  const { row } = props;
+  const { row, id, trackpost } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
-  const username = JSON.parse(localStorage.getItem("currentUser")).email
-  
+
+  const handleDeletePost = () => {
+    deletePost(String(id))
+    .then(res => {
+      console.log(res.data);
+      trackpost([])
+    })
+  }
+
+
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
@@ -52,7 +60,7 @@ function Row(props) {
                 Content
               </Typography>
               <Table size="small" aria-label="public">
-                <DeleteIcon></DeleteIcon>
+                <DeleteIcon onClick={handleDeletePost} style={{cursor: "pointer"}}></DeleteIcon>
                 <TableHead>
                   <TableRow>
                     <TableCell>{row.date}</TableCell>
@@ -82,8 +90,10 @@ Row.propTypes = {
 
 
 export default function CollapsibleTable() {
-  const [rows, setRows] = useState([])
-  let username = JSON.parse(localStorage.getItem("currentUser")).nickname;
+  const [rows, setRows] = useState([]);
+  const [trackPostDelete, settrackPostDelete] = useState([]);
+  const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
+
   useEffect(() => {
     userPublicPosts(username)
     .then(res => {
@@ -92,7 +102,8 @@ export default function CollapsibleTable() {
           setRows(JSON.parse(localStorage.getItem("userPublicPost")));
         }
     })
-    },[]);
+    },
+    [trackPostDelete]);
 
   return (
     <TableContainer component={Paper}>
@@ -104,7 +115,7 @@ export default function CollapsibleTable() {
         </TableHead>
         <TableBody>
         {rows && rows.sort(()=> (-1)).map((row) => (
-            <Row key={row.name} row={row} />
+            <Row key={row.id} row={row} id={row._id} trackpost={settrackPostDelete} />
           ))}
         </TableBody>
       </Table>

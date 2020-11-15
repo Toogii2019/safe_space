@@ -48,9 +48,7 @@ export default function MultilineTextFields(props) {
   const getAllPublicPosts = () => {
     posts()
     .then(res => {
-      localStorage.setItem("allposts", JSON.stringify(res.data));
-      // props.track(JSON.parse(localStorage.setItem("allposts", JSON.stringify(res.data))));
-      
+      localStorage.setItem("allposts", JSON.stringify(res.data));      
     }
     )
   }

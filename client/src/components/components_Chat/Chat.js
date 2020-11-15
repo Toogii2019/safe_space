@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import io from 'socket.io-client'
 import defaultAvatar from './ironman.jpg';
 
-
 const socket = io.connect("https://safe-space-chat-service.herokuapp.com")
 class Chat extends React.Component {
   constructor(props) {
@@ -22,13 +21,15 @@ class Chat extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
-    const {message, user, chat} = this.state
+    const {chat} = this.state
     
-    socket.on('message', ({ user, msgObj }) => {
-      // this.setState([...chat, { user, message }])
-        
+    socket.on('message', ({ user, msgObj }) => {   
         if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
           this.setState({chat: [...chat, msgObj]})
+          // localStorage.setItem("chatHistory", JSON.stringify([...JSON.parse(localStorage.getItem("chatHistory")), msgObj]))
+          if ((this.props.receiver !== msgObj.sender.name) && (username !== msgObj.sender.name)) {
+            this.props.chatSetter(msgObj.sender.name)
+          }
         }
     })
 
@@ -39,13 +40,10 @@ class Chat extends React.Component {
   }
 
   handleSendMessage = event => {
-    
     event.preventDefault();
     this.setState({ user: this.props.receiver})
     const {message} = this.state;
     const user = this.props.receiver;
-    // Socket part start
-    console.log(user, message)
 
     let msgObj =
       {
@@ -60,13 +58,6 @@ class Chat extends React.Component {
 
     socket.emit('message', { user, msgObj })
     this.setState({ message: '', user })
-
-    // Socket part end
-
-
-
-    // this.props.onSubmit(message);
-    this.setState({message: ''});
   };
 
   scrollToBottom = () => {
@@ -75,40 +66,40 @@ class Chat extends React.Component {
   };
 
   render() {
-    let {messages, isLoading, user, renderMessage} = this.props;
+    let {isLoading, user, renderMessage} = this.props;
     let {message} = this.state;
 
     return (
-            <div className='chat-box'>
-              <div className='msg-page'>
-                <MessageList
-                  isLoading={isLoading}
-                  messages={this.state.chat} 
-                  user={user}
-                  renderMessage={renderMessage}
-                />
-                <div className='chat-box-bottom'>
-                  { this.props.typingIndicator?this.props.typingIndicator:'' }
-                  <div id='end-of-chat'></div>
-                </div>
-              </div>
-              <div className='msg-footer'>
-                <form
-                  className='message-form'
-                  onSubmit={this.handleSendMessage}>
-                  <div className='input-group'>
-                    <input
-                      type='text'
-                      className='form-control message-input'
-                      placeholder='Type something'
-                      value={message}
-                      onChange={event => this.setState({ message: event.target.value})}
-                      required
-                    />
-                  </div>
-                </form>
-              </div>
+      <div className='chat-box'>
+        <div className='msg-page'>
+          <MessageList
+            isLoading={isLoading}
+            messages={this.state.chat} 
+            user={user}
+            renderMessage={renderMessage}
+          />
+          <div className='chat-box-bottom'>
+            { this.props.typingIndicator?this.props.typingIndicator:'' }
+            <div id='end-of-chat'></div>
+          </div>
+        </div>
+        <div className='msg-footer'>
+          <form
+            className='message-form'
+            onSubmit={this.handleSendMessage}>
+            <div className='input-group'>
+              <input
+                type='text'
+                className='form-control message-input'
+                placeholder='Type something'
+                value={message}
+                onChange={event => this.setState({ message: event.target.value})}
+                required
+              />
             </div>
+          </form>
+        </div>
+      </div>
     );
   }
 }
@@ -129,7 +120,6 @@ Chat.defaultProps = {
     "uid": "user1"
   },
   isLoading: false,
-  onSubmit: (message) => console.log(message)
 };
 
 export default Chat;

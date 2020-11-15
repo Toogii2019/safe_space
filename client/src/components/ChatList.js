@@ -22,13 +22,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AlignItemsList(props) {
   const classes = useStyles();
-
   const [users, setUsers] = useState([])
 
   useEffect(() => {
     const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     getUsers(username)
-    .then(res => setUsers(res.data))
+    .then(res => {
+      setUsers(res.data)
+      users.map(({nickname}) => {
+        if (localStorage.getItem(nickname) === null) {
+          localStorage.setItem(nickname, "[]")
+        }
+      })
+    })
   })
 
   const setChatBuddy = (e) => {
@@ -41,10 +47,7 @@ export default function AlignItemsList(props) {
     <List className={classes.root}>
       <Divider variant="inset" component="li" />
 
-
-
     {users && users.map((user) => (
-            
 
       <ListItem alignItems="flex-start" style={{color: "#1c3131"}}>
         <ListItemAvatar>
@@ -65,9 +68,7 @@ export default function AlignItemsList(props) {
             </React.Fragment>
           }
         />
-        
       </ListItem>
-
     )
     )} 
     </List>

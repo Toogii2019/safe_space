@@ -21,6 +21,7 @@ export default class Login extends Component {
                 else {
                     localStorage.setItem("currentUser", JSON.stringify(res.data))
                     this.props.setUser(res.data);
+                    localStorage.setItem("chatHistory", "[]")
                     window.location.replace("/member")
                 }
             });
