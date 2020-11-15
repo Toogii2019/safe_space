@@ -36,6 +36,7 @@ export default function AlignItemsList(props) {
     localStorage.setItem("currentChatBuddy", e.target.textContent);
     props.chatSetter(e.target.textContent);
   }
+
   return (
     <List className={classes.root}>
       <Divider variant="inset" component="li" />
@@ -43,12 +44,13 @@ export default function AlignItemsList(props) {
 
 
     {users && users.map((user) => (
-      
-      <ListItem alignItems="flex-start" >
+            
+
+      <ListItem alignItems="flex-start" style={{color: "#1c3131"}}>
         <ListItemAvatar>
           <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
         </ListItemAvatar>
-        <ListItemText style={{ cursor: "pointer" }} onClick={setChatBuddy}
+        <ListItemText style={{ cursor: "pointer"}} onClick={setChatBuddy}
           primary={user.nickname}
           name = {user.nickname}
           secondary={
