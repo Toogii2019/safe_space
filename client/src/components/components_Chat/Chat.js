@@ -24,11 +24,12 @@ class Chat extends React.Component {
     const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     const {message, user, chat} = this.state
     
-    socket.on('message', ({ user, msgObj }) => {
-      // this.setState([...chat, { user, message }])
-        
+    socket.on('message', ({ user, msgObj }) => {   
         if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
           this.setState({chat: [...chat, msgObj]})
+          if ((this.props.receiver !== msgObj.sender.name) && (username !== msgObj.sender.name)) {
+            this.props.chatSetter(msgObj.sender.name)
+          }
         }
     })
 
@@ -60,13 +61,6 @@ class Chat extends React.Component {
 
     socket.emit('message', { user, msgObj })
     this.setState({ message: '', user })
-
-    // Socket part end
-
-
-
-    // this.props.onSubmit(message);
-    this.setState({message: ''});
   };
 
   scrollToBottom = () => {
@@ -75,7 +69,7 @@ class Chat extends React.Component {
   };
 
   render() {
-    let {messages, isLoading, user, renderMessage} = this.props;
+    let {isLoading, user, renderMessage} = this.props;
     let {message} = this.state;
 
     return (
@@ -129,7 +123,6 @@ Chat.defaultProps = {
     "uid": "user1"
   },
   isLoading: false,
-  onSubmit: (message) => console.log(message)
 };
 
 export default Chat;
