@@ -129,4 +129,16 @@ module.exports = function (app) {
           res.json(err);
           });
       });
+
+      app.get("/api/getallusers/:nickname", (req, res) => {
+        UsersCollection.find(
+          {nickname: { $ne: req.params.nickname}}
+        ) 
+        .then(users => {
+            res.json(users)
+          })
+          .catch(err => {
+            res.json(null);
+          });
+        });      
 };

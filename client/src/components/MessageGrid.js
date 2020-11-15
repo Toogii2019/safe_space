@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -6,6 +6,7 @@ import ChatWindow from './ChatWindow';
 import ChatList from './ChatList';
 import MessageSearch from './MessageSearch';
 import MessageSearchBtn from './MessageSearchBtn'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
 export default function FullWidthGrid() {
   const classes = useStyles();
 
+  const [chatBuddy, setChatBuddy] = useState()
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -35,10 +38,10 @@ export default function FullWidthGrid() {
           <Paper className={classes.paper}><MessageSearchBtn></MessageSearchBtn></Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}><h2>Message List</h2><ChatList></ChatList></Paper>
+          <Paper className={classes.paper}><h2>Select Your Chat Buddy</h2><ChatList chatSetter={setChatBuddy}></ChatList></Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}><ChatWindow></ChatWindow></Paper>
+          <Paper className={classes.paper}><ChatWindow chatGetter={chatBuddy}></ChatWindow></Paper>
         </Grid>
       </Grid>
     </div>
