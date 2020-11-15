@@ -44,9 +44,9 @@ export default function AlignItemsList(props) {
   }
 
   const filteredUsers = users.filter(user => {
-    return user.nickname.toLowerCase().indexOf(props.searchedUser.toLowerCase()) !== -1
-  })
 
+    return user.nickname.toLowerCase().indexOf(props.searchedUser) !== -1
+  })
   return (
     <List className={classes.root}>
       <Divider variant="inset" component="li" />
