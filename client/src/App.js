@@ -31,6 +31,8 @@ class App extends Component {
     localStorage.setItem("userPublicPost", "[]");
     localStorage.setItem("userPrivatePost", "[]");
     localStorage.setItem("allposts", "[]");
+    localStorage.setItem("chatHistory", "[]");
+    localStorage.removeItem("currentChatBuddy");
     this.setState({user:null})
     window.location.replace("/")
   }

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import io from 'socket.io-client'
 import defaultAvatar from './ironman.jpg';
 
-
 const socket = io.connect("https://safe-space-chat-service.herokuapp.com")
 class Chat extends React.Component {
   constructor(props) {
@@ -22,11 +21,12 @@ class Chat extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
-    const {message, user, chat} = this.state
+    const {chat} = this.state
     
     socket.on('message', ({ user, msgObj }) => {   
         if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
           this.setState({chat: [...chat, msgObj]})
+          // localStorage.setItem("chatHistory", JSON.stringify([...JSON.parse(localStorage.getItem("chatHistory")), msgObj]))
           if ((this.props.receiver !== msgObj.sender.name) && (username !== msgObj.sender.name)) {
             this.props.chatSetter(msgObj.sender.name)
           }
@@ -40,13 +40,10 @@ class Chat extends React.Component {
   }
 
   handleSendMessage = event => {
-    
     event.preventDefault();
     this.setState({ user: this.props.receiver})
     const {message} = this.state;
     const user = this.props.receiver;
-    // Socket part start
-    console.log(user, message)
 
     let msgObj =
       {

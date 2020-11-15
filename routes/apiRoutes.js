@@ -107,38 +107,48 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/api/getpublicnotifications/:nickname', (req, res) => {
-      NotificationCollection.find({owner: req.params.nickname})
-      .then(notifications => {
-          res.json(notifications);
-          })
-          .catch(err => {
-          res.json(err);
-          });
-      });
+  app.get('/api/getpublicnotifications/:nickname', (req, res) => {
+    NotificationCollection.find({owner: req.params.nickname})
+    .then(notifications => {
+        res.json(notifications);
+        })
+        .catch(err => {
+        res.json(err);
+        });
+    });
 
-    app.put('/api/updatenotification/:nickname/:id', (req, res) => {
-      NotificationCollection.updateOne(
-        { _id : req.params.id, owner: req.params.nickname },
-        { $set: { read : true } }
-      )
-      .then(notification => {
-          res.json(notification);
-          })
-          .catch(err => {
-          res.json(err);
-          });
-      });
+  app.put('/api/updatenotification/:nickname/:id', (req, res) => {
+    NotificationCollection.updateOne(
+      { _id : req.params.id, owner: req.params.nickname },
+      { $set: { read : true } }
+    )
+    .then(notification => {
+        res.json(notification);
+        })
+        .catch(err => {
+        res.json(err);
+        });
+    });
 
-      app.get("/api/getallusers/:nickname", (req, res) => {
-        UsersCollection.find(
-          {nickname: { $ne: req.params.nickname}}
-        ) 
-        .then(users => {
-            res.json(users)
-          })
-          .catch(err => {
-            res.json(null);
-          });
-        });      
+  app.get("/api/getallusers/:nickname", (req, res) => {
+    UsersCollection.find(
+      {nickname: { $ne: req.params.nickname}}
+    ) 
+    .then(users => {
+        res.json(users)
+      })
+      .catch(err => {
+        res.json(null);
+      });
+    });   
+  app.delete('/api/post/:id', (req, res) => {
+    PostsCollection.deleteOne({"_id": req.params.id})
+    .then(post => {
+        console.log(post)
+        res.json(post);
+        })
+        .catch(err => {
+        res.json(err);
+        });
+    });   
 };
