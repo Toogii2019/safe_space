@@ -48,7 +48,7 @@ class Chat extends React.Component {
     let msgObj =
       {
         "text": this.state.message,
-        "id": this.state.chat[this.state.chat.length - 1] + 1,
+        "id": 1,
         "sender": {
           "name": JSON.parse(localStorage.getItem("currentUser")).nickname,
           "uid": JSON.parse(localStorage.getItem("currentUser")).nickname,
