@@ -8,10 +8,11 @@ const socket = io.connect("https://safe-space-chat-service.herokuapp.com")
 class Chat extends React.Component {
   constructor(props) {
     super(props);
+    const chatBuddy = localStorage.getItem("currentChatBuddy");
     this.state = {
       message: '',
       user: '',
-      chat: [],
+      chat: JSON.parse(localStorage.getItem(chatBuddy)) || [],
     };
   }
 
