@@ -45,9 +45,7 @@ class Chat extends React.Component {
           "avatar": defaultAvatar,
         },
       }
-      console.log("sending")
     socket.emit('message', { user, msgObj })
-    console.log("sent")
     this.setState({ message: '', user })
     
     const {chat} = this.state
@@ -55,8 +53,6 @@ class Chat extends React.Component {
     socket.on('message', ({ user, msgObj }) => {   
       if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
         this.setState({chat: [...chat, msgObj]})
-        console.log("received")
-        // localStorage.setItem("chatHistory", JSON.stringify([...JSON.parse(localStorage.getItem("chatHistory")), msgObj]))
         if ((this.props.receiver !== msgObj.sender.name) && (username !== msgObj.sender.name)) {
           this.props.chatSetter(msgObj.sender.name)
         }
