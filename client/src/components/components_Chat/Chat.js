@@ -8,20 +8,11 @@ const socket = io.connect("https://safe-space-chat-service.herokuapp.com")
 class Chat extends React.Component {
   constructor(props) {
     super(props);
-    const chatBuddy = localStorage.getItem("currentChatBuddy");
     this.state = {
       message: '',
       user: '',
-      chat: JSON.parse(localStorage.getItem(chatBuddy)) || [],
+      chat: [],
     };
-  }
-
-  componentWillUnmount() {
-    console.log(this.props.receiver);
-    const {chat} = this.state
-    if (this.props.receiver) {
-      localStorage.setItem(this.props.receiver, JSON.stringify([...chat]))
-    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -37,6 +28,7 @@ class Chat extends React.Component {
           }
         }
         else if (msgObj.text.slice(0,5).toLowerCase() === "@here") {
+
           this.setState({chat: [...chat, msgObj]})
         }
     })
