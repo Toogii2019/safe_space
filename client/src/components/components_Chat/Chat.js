@@ -36,6 +36,9 @@ class Chat extends React.Component {
             this.props.chatSetter(msgObj.sender.name)
           }
         }
+        else if (msgObj.text.slice(0,5).toLowerCase() === "@here") {
+          this.setState({chat: [...chat, msgObj]})
+        }
     })
 
     if (prevState.message !== this.state.message && this.props.typingListener ) {
