@@ -29,11 +29,6 @@ export default function AlignItemsList(props) {
     getUsers(username)
     .then(res => {
       setUsers(res.data)
-      users.map(({nickname}) => {
-        if (localStorage.getItem(nickname) === null) {
-          localStorage.setItem(nickname, "[]")
-        }
-      })
     })
   })
 
