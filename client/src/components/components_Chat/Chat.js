@@ -5,6 +5,7 @@ import io from 'socket.io-client'
 import defaultAvatar from './ironman.jpg';
 
 const socket = io.connect("https://safe-space-chat-service.herokuapp.com")
+var idCount = 0
 class Chat extends React.Component {
   constructor(props) {
     super(props);
@@ -15,23 +16,12 @@ class Chat extends React.Component {
     };
   }
 
+
   componentDidUpdate(prevProps, prevState) {
     const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     const {chat} = this.state
     
-    socket.on('message', ({ user, msgObj }) => {   
-        if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
-          this.setState({chat: [...chat, msgObj]})
-          // localStorage.setItem("chatHistory", JSON.stringify([...JSON.parse(localStorage.getItem("chatHistory")), msgObj]))
-          if ((this.props.receiver !== msgObj.sender.name) && (username !== msgObj.sender.name)) {
-            this.props.chatSetter(msgObj.sender.name)
-          }
-        }
-        else if (msgObj.text.slice(0,5).toLowerCase() === "@here") {
 
-          this.setState({chat: [...chat, msgObj]})
-        }
-    })
 
     if (prevState.message !== this.state.message && this.props.typingListener ) {
       this.props.typingListener();
@@ -44,20 +34,39 @@ class Chat extends React.Component {
     this.setState({ user: this.props.receiver})
     const {message} = this.state;
     const user = this.props.receiver;
-
+    const username = JSON.parse(localStorage.getItem("currentUser")).nickname
     let msgObj =
       {
         "text": this.state.message,
-        "id": 1,
+        "id": idCount ++,
         "sender": {
-          "name": JSON.parse(localStorage.getItem("currentUser")).nickname,
-          "uid": JSON.parse(localStorage.getItem("currentUser")).nickname,
+          "name": username,
+          "uid": username,
           "avatar": defaultAvatar,
         },
       }
-
+      console.log("sending")
     socket.emit('message', { user, msgObj })
+    console.log("sent")
     this.setState({ message: '', user })
+    
+    const {chat} = this.state
+  
+    socket.on('message', ({ user, msgObj }) => {   
+      if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
+        this.setState({chat: [...chat, msgObj]})
+        console.log("received")
+        // localStorage.setItem("chatHistory", JSON.stringify([...JSON.parse(localStorage.getItem("chatHistory")), msgObj]))
+        if ((this.props.receiver !== msgObj.sender.name) && (username !== msgObj.sender.name)) {
+          this.props.chatSetter(msgObj.sender.name)
+        }
+      }
+      else if (msgObj.text.slice(0,5).toLowerCase() === "@here") {
+
+        this.setState({chat: [...chat, msgObj]})
+      }
+  })
+
   };
 
   scrollToBottom = () => {
