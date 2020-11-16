@@ -15,8 +15,12 @@ class Chat extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillUnmount() {
     console.log(this.props.receiver);
+    const {chat} = this.state
+    if (this.props.receiver) {
+      localStorage.setItem(this.props.receiver, JSON.stringify([...chat]))
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
