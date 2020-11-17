@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ChatWindow from './ChatWindow';
 import ChatList from './ChatList';
 import MessageSearch from './MessageSearch';
-import MessageSearchBtn from './MessageSearchBtn'
+import MessageSearchBtn from './MessageSearchBtn';
+import io from 'socket.io-client';
 
-
+const socket = io.connect("https://safe-space-chat-service.herokuapp.com")
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -28,6 +29,29 @@ export default function FullWidthGrid() {
 
   const [chatBuddy, setChatBuddy] = useState()
   const [searchedUser, setSearchedUser] = useState("")
+  const [chat, setChat] = useState([]);
+  const [messageCount, setMessageCount] = useState(0);
+
+
+
+  useEffect(() => {
+    const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
+    
+    socket.on('message', ({ user, msgObj }) => {   
+      
+      if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
+        setChat([...chat, msgObj])
+        if ((chatBuddy !== msgObj.sender.name) && (username !== msgObj.sender.name)) {
+          setChatBuddy(msgObj.sender.name)
+        }
+      }
+      else if (msgObj.text.slice(0,5).toLowerCase() === "@here") {
+
+        setChat([...chat, msgObj])
+      }
+    })
+
+  })
 
   return (
     <div className={classes.root}>
@@ -39,7 +63,7 @@ export default function FullWidthGrid() {
           <Paper className={classes.paper}><h2>Select Your Chat Buddy</h2><p style={{color: "green"}}><b>Only you and your chat buddy can see each other's messages</b></p><ChatList searchedUser={searchedUser} chatSetter={setChatBuddy}></ChatList></Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}><ChatWindow chatGetter={chatBuddy} chatSetter={setChatBuddy}></ChatWindow></Paper>
+          <Paper className={classes.paper}><ChatWindow chat={chat} setChat={setChat} chatGetter={chatBuddy} chatSetter={setChatBuddy}></ChatWindow></Paper>
         </Grid>
       </Grid>
     </div>
