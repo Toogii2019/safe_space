@@ -26,32 +26,36 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FullWidthGrid() {
   const classes = useStyles();
-
   const [chatBuddy, setChatBuddy] = useState()
   const [searchedUser, setSearchedUser] = useState("")
   const [chat, setChat] = useState([]);
-  const [messageCount, setMessageCount] = useState(0);
-
-
 
   useEffect(() => {
+    console.log("Chat is ",chat)
     const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     
     socket.on('message', ({ user, msgObj }) => {   
       
       if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
-        setChat([...chat, msgObj])
+        setChat((oldChat) => {
+          const newChat = [...oldChat, msgObj];
+          return newChat
+        })
+
         if ((chatBuddy !== msgObj.sender.name) && (username !== msgObj.sender.name)) {
           setChatBuddy(msgObj.sender.name)
         }
       }
       else if (msgObj.text.slice(0,5).toLowerCase() === "@here") {
 
-        setChat([...chat, msgObj])
+        setChat((oldChat) => {
+          const newChat = [...oldChat, msgObj];
+          return newChat
+        })
       }
     })
 
-  })
+  }, [])
 
   return (
     <div className={classes.root}>

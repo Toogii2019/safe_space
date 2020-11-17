@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import io from 'socket.io-client'
 import defaultAvatar from './ironman.jpg';
 
-const socket = io.connect("https://safe-space-chat-service.herokuapp.com")
 var receivedOnce = false;
 var idCount = 0
 class Chat extends React.Component {
@@ -40,6 +39,8 @@ class Chat extends React.Component {
           "avatar": defaultAvatar,
         },
       }
+    const socket = io.connect("https://safe-space-chat-service.herokuapp.com")
+
     socket.emit('message', { user, msgObj })
     this.setState({ message: '', user })
   };
