@@ -3,8 +3,8 @@ import MessageList from './MessageList';
 import PropTypes from 'prop-types';
 import io from 'socket.io-client'
 import defaultAvatar from './ironman.jpg';
+import {writeChatToDB} from '../../utils/API';
 
-var receivedOnce = false;
 var idCount = 0
 class Chat extends React.Component {
   constructor(props) {
@@ -14,6 +14,19 @@ class Chat extends React.Component {
       user: '',
       chat: [],
     };
+  }
+
+  componentWillUnmount() {
+    const username = JSON.parse(localStorage.getItem("currentUser")).nickname
+    const data = {
+      chat: this.props.chat,
+      source: username,
+    }
+
+    if (this.props.chat.length > 0 ) {
+    writeChatToDB(data)
+    .then(res => console.log(res.data))
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -31,6 +44,7 @@ class Chat extends React.Component {
     const username = JSON.parse(localStorage.getItem("currentUser")).nickname
     let msgObj =
       {
+        "source": "",
         "text": this.state.message,
         "id": idCount ++,
         "sender": {

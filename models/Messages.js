@@ -21,7 +21,7 @@ const MessagesSchema = new Schema({
         type: String,
         required: true,
     },
-    sender: [
+    sender:
         {
             name: {
                 type: String,
@@ -36,9 +36,6 @@ const MessagesSchema = new Schema({
                 required: true,
             },
         },
-    ],
-
-
 });
 
 const MessagesCollection = mongoose.model("MessagesCollection", MessagesSchema);
