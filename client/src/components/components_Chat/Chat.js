@@ -5,6 +5,7 @@ import io from 'socket.io-client'
 import defaultAvatar from './ironman.jpg';
 
 const socket = io.connect("https://safe-space-chat-service.herokuapp.com")
+var receivedOnce = false;
 var idCount = 0
 class Chat extends React.Component {
   constructor(props) {
@@ -16,13 +17,25 @@ class Chat extends React.Component {
     };
   }
 
-
   componentDidUpdate(prevProps, prevState) {
     const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     const {chat} = this.state
     
+    socket.on('message', ({ user, msgObj }) => {   
+      
+      if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
+        this.setState({chat: [...chat, msgObj]})
+        if ((this.props.receiver !== msgObj.sender.name) && (username !== msgObj.sender.name)) {
+          this.props.chatSetter(msgObj.sender.name)
+        }
+      }
+      else if (msgObj.text.slice(0,5).toLowerCase() === "@here") {
 
+        this.setState({chat: [...chat, msgObj]})
+      }
+    })
 
+  
     if (prevState.message !== this.state.message && this.props.typingListener ) {
       this.props.typingListener();
     }
@@ -47,22 +60,6 @@ class Chat extends React.Component {
       }
     socket.emit('message', { user, msgObj })
     this.setState({ message: '', user })
-    
-    const {chat} = this.state
-  
-    socket.on('message', ({ user, msgObj }) => {   
-      if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
-        this.setState({chat: [...chat, msgObj]})
-        if ((this.props.receiver !== msgObj.sender.name) && (username !== msgObj.sender.name)) {
-          this.props.chatSetter(msgObj.sender.name)
-        }
-      }
-      else if (msgObj.text.slice(0,5).toLowerCase() === "@here") {
-
-        this.setState({chat: [...chat, msgObj]})
-      }
-  })
-
   };
 
   scrollToBottom = () => {
