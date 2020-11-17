@@ -11,4 +11,6 @@ export const allPosts = nickname => axios.get('/api/allposts/' + nickname);
 export const getPublicNotifications = nickname => axios.get('/api/getpublicnotifications/' + nickname);
 export const updateNotification = (id, nickname) => axios.put('/api/updatenotification/' + nickname + "/" + id);
 export const getUsers = nickname => axios.get('/api/getallusers/' + nickname);
+export const getChatHistory = nickname => axios.get('/api/getchat/' + nickname);
+export const writeChatToDB = data => axios.post("/api/writeChat", data);
 

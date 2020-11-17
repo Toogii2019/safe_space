@@ -5,8 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import ChatWindow from './ChatWindow';
 import ChatList from './ChatList';
 import MessageSearch from './MessageSearch';
-import MessageSearchBtn from './MessageSearchBtn';
 import io from 'socket.io-client';
+import {getChatHistory} from '../utils/API';
 
 const socket = io.connect("https://safe-space-chat-service.herokuapp.com")
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +31,12 @@ export default function FullWidthGrid() {
   const [chat, setChat] = useState([]);
 
   useEffect(() => {
+    const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
+    getChatHistory(username)
+    .then(res => setChat(res.data))
+  },[])
+
+  useEffect(() => {
     console.log("Chat is ",chat)
     const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     
@@ -38,6 +44,7 @@ export default function FullWidthGrid() {
       
       if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
         setChat((oldChat) => {
+          msgObj.source = username;
           const newChat = [...oldChat, msgObj];
           return newChat
         })
@@ -49,6 +56,7 @@ export default function FullWidthGrid() {
       else if (msgObj.text.slice(0,5).toLowerCase() === "@here") {
 
         setChat((oldChat) => {
+          msgObj.source = username;
           const newChat = [...oldChat, msgObj];
           return newChat
         })

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { UsersCollection, PostsCollection, NotificationCollection } = require("../models");
+const { UsersCollection, PostsCollection, NotificationCollection, MessagesCollection } = require("../models");
 const bcrypt = require("bcryptjs");
 
 mongoose.connect(process.env.DBURI || "mongodb://localhost/lessondb", {
@@ -45,7 +45,6 @@ module.exports = function (app) {
     });
 
   app.post("/api/post", ({body}, res) => {
-    console.log(body.date);
     if (!body.post.private) {
       UsersCollection.find({})
       .then(users => {
@@ -144,11 +143,32 @@ module.exports = function (app) {
   app.delete('/api/post/:id', (req, res) => {
     PostsCollection.deleteOne({"_id": req.params.id})
     .then(post => {
-        console.log(post)
         res.json(post);
         })
         .catch(err => {
         res.json(err);
         });
-    });   
+    });  
+    
+    
+  app.get('/api/getchat/:nickname', (req, res) => {
+    MessagesCollection.find({source: req.params.nickname})
+    .then(chatHist => {
+        res.json(chatHist);
+        })
+        .catch(err => {
+        res.json(err);
+        });
+    });
+
+  app.post("/api/writeChat", ({body:{chat, source}}, res) => {
+    MessagesCollection.deleteMany({source: source})
+    .then(() =>
+    MessagesCollection.collection.insertMany(chat)
+    .then(data => {
+      res.json(data)
+    })
+    )
+  })
+
 };
