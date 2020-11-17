@@ -18,24 +18,6 @@ class Chat extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
-    const {chat} = this.state
-    
-    socket.on('message', ({ user, msgObj }) => {   
-      
-      if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
-        this.setState({chat: [...chat, msgObj]})
-        if ((this.props.receiver !== msgObj.sender.name) && (username !== msgObj.sender.name)) {
-          this.props.chatSetter(msgObj.sender.name)
-        }
-      }
-      else if (msgObj.text.slice(0,5).toLowerCase() === "@here") {
-
-        this.setState({chat: [...chat, msgObj]})
-      }
-    })
-
-  
     if (prevState.message !== this.state.message && this.props.typingListener ) {
       this.props.typingListener();
     }
@@ -68,7 +50,7 @@ class Chat extends React.Component {
   };
 
   render() {
-    let {isLoading, user, renderMessage} = this.props;
+    let {isLoading, user, renderMessage, chat} = this.props;
     let {message} = this.state;
 
     return (
@@ -76,7 +58,7 @@ class Chat extends React.Component {
         <div className='msg-page'>
           <MessageList
             isLoading={isLoading}
-            messages={this.state.chat} 
+            messages={chat} 
             user={user}
             renderMessage={renderMessage}
           />
