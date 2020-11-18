@@ -37,15 +37,15 @@ export default function SimpleCard(props) {
 
   return (
     <div>
-    <h2>See All Public Posts From Other Users</h2>
+    <h2>Public Feed</h2>
     {rows && rows.sort(()=>(-1)).map((row) => (
     <Card className={classes.root}>
       <CardContent>
-        <h4>{row.user}</h4>
-        <Typography variant="h5" component="h2" style = {{ textAlign: "left", fontSize: "20px"}}> 
+        <h4>@{row.user}</h4>
+        <Typography variant="h5" component="h2" style = {{ textAlign: "left", fontSize: "20px", fontWeight: "700", fontFamily: "Cormorant"}}> 
           {row.title}
         </Typography>
-        <Typography variant="body2" component="p" style = {{ textAlign: "left", marginBottom: ""}}>
+        <Typography variant="body2" component="p" style = {{ textAlign: "left", marginBottom: "", fontSize: "18px", fontFamily: "Cormorant"}}>
         {row.post} 
         <br></br>
         {row.date}

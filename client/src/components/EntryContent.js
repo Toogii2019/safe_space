@@ -84,7 +84,7 @@ export default function MultilineTextFields(props) {
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>
-        <h1>Enter New Post</h1>
+        <h1>New Entry</h1>
         <TextField
           id="outlined-multiline-flexible"
           label="Enter Note Title"

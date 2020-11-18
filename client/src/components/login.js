@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {login} from "../utils/API";
 import './loginSignup.css';
+import logo from './logo1.png';
 
 export default class Login extends Component {
 
@@ -38,7 +39,7 @@ export default class Login extends Component {
             <div className="App">
             {!this.state.user ? <nav className="navbar navbar-expand-lg navbar-light fixed-top">
               <div className="container">
-                <a href="/" class="logo">SAFESPACE</a>
+              <a href="/" class="logo"><img src={logo} width="150px" height="30px"></img></a>
                 <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                   <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
@@ -74,9 +75,6 @@ export default class Login extends Component {
                 </div>
 
                 <button type="button" className="btn btn-light btn-block" onClick={ this.handleSignIn }>Sign In</button>
-                <p className="forgot-password text-right">
-                    Forgot <a href="#">password?</a>
-                </p>
             </form>
             </div>
             </div>
