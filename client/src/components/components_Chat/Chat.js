@@ -1,7 +1,7 @@
 import React from 'react';
 import MessageList from './MessageList';
 import PropTypes from 'prop-types';
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 import defaultAvatar from './ironman.jpg';
 import {writeChatToDB} from '../../utils/API';
 
@@ -53,7 +53,7 @@ class Chat extends React.Component {
           "avatar": defaultAvatar,
         },
       }
-    const socket = io.connect("https://safe-space-chat-service.herokuapp.com")
+    const {socket} = this.props;
 
     socket.emit('message', { user, msgObj })
     this.setState({ message: '', user })

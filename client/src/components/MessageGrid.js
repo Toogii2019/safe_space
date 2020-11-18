@@ -75,7 +75,7 @@ export default function FullWidthGrid() {
           <Paper className={classes.paper}><h2>Select Your Chat Buddy</h2><p style={{color: "green"}}><b>Only you and your chat buddy can see each other's messages</b></p><ChatList searchedUser={searchedUser} chatSetter={setChatBuddy}></ChatList></Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}><ChatWindow chat={chat} setChat={setChat} chatGetter={chatBuddy} chatSetter={setChatBuddy}></ChatWindow></Paper>
+          <Paper className={classes.paper}><ChatWindow socket={socket} chat={chat} setChat={setChat} chatGetter={chatBuddy} chatSetter={setChatBuddy}></ChatWindow></Paper>
         </Grid>
       </Grid>
     </div>

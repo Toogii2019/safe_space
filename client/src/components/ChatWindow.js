@@ -28,7 +28,7 @@ class App extends React.Component {
         <div className='chat-header'>
           {this.props.chatGetter ? <h5 style={{color: "blue"}}>You are sending privately to {this.props.chatGetter} </h5>: <h5 style={{color: "red"}}>Please choose your friend to send message privately!</h5>}
         </div>
-        <ChatBox chat={this.props.chat} setChat={this.props.setChat} receiver={this.props.chatGetter} user={this.state.user} chatSetter={this.props.chatSetter} />
+        <ChatBox socket={this.props.socket} chat={this.props.chat} setChat={this.props.setChat} receiver={this.props.chatGetter} user={this.state.user} chatSetter={this.props.chatSetter} />
       </div>
     )
   }
