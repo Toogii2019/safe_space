@@ -56,9 +56,9 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
-              <Typography variant="h6" gutterBottom component="div">
+              {/* <Typography variant="h6" gutterBottom component="div">
                 Content
-              </Typography>
+              </Typography> */}
               <Table size="small" aria-label="public">
                 <DeleteIcon onClick={handleDeletePost} style={{cursor: "pointer"}}></DeleteIcon>
                 <TableHead>

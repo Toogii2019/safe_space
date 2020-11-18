@@ -29,6 +29,10 @@ body {
   width: 40%;
 }
 
+.MuiTableCell-root {
+  font-family: 'Cormorant', serif !important;
+}
+
 h1,h2,h3,h4,h5,h6,label,span {
   font-weight: 500;
   font-family: 'Cormorant', serif;
@@ -36,11 +40,16 @@ h1,h2,h3,h4,h5,h6,label,span {
 h4 {
   text-align: left;
 }
-body, html, .App, #root, .auth-wrapper {
+body, html, .App, #root, .auth-wrapper, .MuiTypography-body1 {
   width: 100%;
   height: 100%;
-  font-family: 'Cormorant', serif;
+  font-family: 'Cormorant', serif !important;
 }
+
+.head {
+  padding: 10px;
+}
+
 button {
   color: #212529;
   background-color: #f8f9fa;
