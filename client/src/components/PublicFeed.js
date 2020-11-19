@@ -36,7 +36,7 @@ export default function SimpleCard(props) {
   return (
     <div>
     <h2>Public Feed</h2>
-    {rows && rows.sort(()=>(1)).map((row) => (
+    {rows && rows.sort(()=>(-1)).map((row) => (
     <Card className={classes.root}>
       <CardContent>
         <h4>@{row.user}</h4>
