@@ -1,6 +1,6 @@
 import React from 'react';
 import ChatBox from "./components_Chat/";
-import  './components_Chat/style.css';
+import './components_Chat/style.css';
 import './style.css';
 
 class App extends React.Component {
@@ -13,13 +13,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-
+    const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     const user = {
-      "uid": JSON.parse(localStorage.getItem("currentUser")).nickname
+      "uid": username
     };
-
     this.setState({ user: user });
-
   }
 
   render() {

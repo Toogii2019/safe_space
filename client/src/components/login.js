@@ -39,7 +39,7 @@ export default class Login extends Component {
             <div className="App">
             {!this.state.user ? <nav className="navbar navbar-expand-lg navbar-light fixed-top">
               <div className="container">
-              <a href="/" class="logo"><img src={logo} width="180px" height="40px"></img></a>
+              <a href="/" class="logo"><img src={logo} alt="logo" width="180px" height="40px"></img></a>
                 <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                   <ul className="navbar-nav ml-auto">
                     <li className="nav-item">

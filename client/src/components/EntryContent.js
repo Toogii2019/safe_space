@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SaveIcon from '@material-ui/icons/Save';
-import {posting, posts} from '../utils/API';
+import {posting, getPublicPosts} from '../utils/API';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MultilineTextFields(props) {
   useEffect(() => {
-    posts()
+    getPublicPosts()
     .then(res =>
       localStorage.setItem("allposts", JSON.stringify(res.data)))
     },[]);
@@ -46,7 +46,7 @@ export default function MultilineTextFields(props) {
   }
 
   const getAllPublicPosts = () => {
-    posts()
+    getPublicPosts()
     .then(res => {
       localStorage.setItem("allposts", JSON.stringify(res.data));      
     }

@@ -7,6 +7,7 @@ import ChatList from './ChatList';
 import MessageSearch from './MessageSearch';
 import io from 'socket.io-client';
 import {getChatHistory} from '../utils/API';
+import { receiveMessage } from './components_Chat/MessageIO';
 
 const socket = io.connect("https://safe-space-chat-service.herokuapp.com")
 const useStyles = makeStyles((theme) => ({
@@ -29,39 +30,16 @@ export default function FullWidthGrid() {
   const [chatBuddy, setChatBuddy] = useState()
   const [searchedUser, setSearchedUser] = useState("")
   const [chat, setChat] = useState([]);
-
+  const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
+  
   useEffect(() => {
-    const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     getChatHistory(username)
     .then(res => setChat(res.data))
   },[])
 
   useEffect(() => {
-    console.log("Chat is ",chat)
     const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
-    
-    socket.on('message', ({ user, msgObj }) => {   
-      
-      if ((user === username || msgObj.sender.name === username) && (user !== undefined)) {
-        setChat((oldChat) => {
-          msgObj.source = username;
-          const newChat = [...oldChat, msgObj];
-          return newChat
-        })
-
-        if ((chatBuddy !== msgObj.sender.name) && (username !== msgObj.sender.name)) {
-          setChatBuddy(msgObj.sender.name)
-        }
-      }
-      else if (msgObj.text.slice(0,5).toLowerCase() === "@here") {
-
-        setChat((oldChat) => {
-          msgObj.source = username;
-          const newChat = [...oldChat, msgObj];
-          return newChat
-        })
-      }
-    })
+    receiveMessage(username, chat, setChat, chatBuddy, setChatBuddy)
 
   }, [])
 
