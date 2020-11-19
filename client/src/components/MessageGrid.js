@@ -30,15 +30,16 @@ export default function FullWidthGrid() {
   const [chatBuddy, setChatBuddy] = useState()
   const [searchedUser, setSearchedUser] = useState("")
   const [chat, setChat] = useState([]);
-  const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
-  
+
   useEffect(() => {
+    const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     getChatHistory(username)
     .then(res => setChat(res.data))
   },[])
 
   useEffect(() => {
     const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
+    
     receiveMessage(username, chat, setChat, chatBuddy, setChatBuddy)
 
   }, [])

@@ -88,9 +88,9 @@ Row.propTypes = {
 export default function CollapsibleTable() {
   const [rows, setRows] = useState([]);
   const [trackPostDelete, settrackPostDelete] = useState([]);
-  const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
-
+  
   useEffect(() => {
+    const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     userPublicPosts(username)
     .then(res => {
       localStorage.setItem("userPublicPost", JSON.stringify(res.data));

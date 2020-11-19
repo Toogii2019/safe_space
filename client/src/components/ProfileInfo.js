@@ -3,9 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
 import {allPosts} from '../utils/API';
-import { pink } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,10 +38,6 @@ export default function ImageAvatars() {
     numberOfPrivatePosts: 0,
     numberOfPublicPosts: 0 
   })
-
-  function checkPrivate(post) {
-    return post.private
-  }
 
   const classes = useStyles();
   useEffect(() => {
