@@ -12,7 +12,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -56,9 +55,6 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
-              {/* <Typography variant="h6" gutterBottom component="div">
-                Content
-              </Typography> */}
               <Table size="small" aria-label="public">
                 <DeleteIcon onClick={handleDeletePost} style={{cursor: "pointer"}}></DeleteIcon>
                 <TableHead>
@@ -92,9 +88,9 @@ Row.propTypes = {
 export default function CollapsibleTable() {
   const [rows, setRows] = useState([]);
   const [trackPostDelete, settrackPostDelete] = useState([]);
-  const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
-
+  
   useEffect(() => {
+    const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     userPublicPosts(username)
     .then(res => {
       localStorage.setItem("userPublicPost", JSON.stringify(res.data));

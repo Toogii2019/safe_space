@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import ProfileInfo from './ProfileInfo';
 import TablePublic from './TablePublic';
 import TablePrivate from './TablePrivate';
-import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    padding: '0px',
   },
   portfolio: {
     marginLeft: 'auto',

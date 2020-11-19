@@ -1,33 +1,32 @@
 import React from 'react';
 import MessageList from './MessageList';
 import PropTypes from 'prop-types';
-// import io from 'socket.io-client'
 import defaultAvatar from './ironman.jpg';
 import {writeChatToDB} from '../../utils/API';
+import {sendMessage} from './MessageIO';
 
-var idCount = 0
+var idCount = 0;
 class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       message: '',
-      user: '',
-      chat: [],
+      user: ''
     };
   }
 
   componentWillUnmount() {
-    const username = JSON.parse(localStorage.getItem("currentUser")).nickname
+    const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     const data = {
       chat: this.props.chat,
       source: username,
     }
 
     if (this.props.chat.length > 0 ) {
-    writeChatToDB(data)
-    .then(res => console.log(res.data))
+      writeChatToDB(data)
+      .then(res => console.log(res.data));
+      }
     }
-  }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.message !== this.state.message && this.props.typingListener ) {
@@ -38,14 +37,15 @@ class Chat extends React.Component {
 
   handleSendMessage = event => {
     event.preventDefault();
-    this.setState({ user: this.props.receiver})
+    const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
+    this.setState({ user: this.props.receiver});
     const {message} = this.state;
     const user = this.props.receiver;
-    const username = JSON.parse(localStorage.getItem("currentUser")).nickname
+    
     let msgObj =
       {
         "source": "",
-        "text": this.state.message,
+        "text": message,
         "id": idCount ++,
         "sender": {
           "name": username,
@@ -53,10 +53,9 @@ class Chat extends React.Component {
           "avatar": defaultAvatar,
         },
       }
-    const {socket} = this.props;
 
-    socket.emit('message', { user, msgObj })
-    this.setState({ message: '', user })
+    sendMessage({user, msgObj});
+    this.setState({ message: '', user });
   };
 
   scrollToBottom = () => {

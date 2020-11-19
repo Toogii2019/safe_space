@@ -21,25 +21,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AlignItemsList(props) {
+  const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
   const classes = useStyles();
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const username = JSON.parse(localStorage.getItem("currentUser")).nickname;
     getUsers(username)
     .then(res => {
-      setUsers(res.data)
+      setUsers(res.data);
     })
   })
 
   const setChatBuddy = (e) => {
-    console.log(e.target.textContent);
     localStorage.setItem("currentChatBuddy", e.target.textContent);
     props.chatSetter(e.target.textContent);
   }
 
   const filteredUsers = users.filter(user => {
-
     return user.nickname.toLowerCase().indexOf(props.searchedUser) !== -1
   })
   return (
