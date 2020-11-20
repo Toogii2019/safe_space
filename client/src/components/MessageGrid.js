@@ -46,15 +46,15 @@ export default function FullWidthGrid() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={0}>
-        <Grid item xs={7} sm={7}>
-          <Paper className={classes.paper}><MessageSearch setSearchedUser={setSearchedUser}></MessageSearch></Paper>
-        </Grid>
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}><h2>Chat List</h2><p style={{color: "black"}}><b>Select user to chat</b></p><ChatList searchedUser={searchedUser} chatSetter={setChatBuddy}></ChatList></Paper>
+          <Paper className={classes.paper} style={{width: 'auto', maxWidth: '800px'}}><MessageSearch setSearchedUser={setSearchedUser}></MessageSearch></Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}><ChatWindow socket={socket} chat={chat} setChat={setChat} chatGetter={chatBuddy} chatSetter={setChatBuddy}></ChatWindow></Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} style={{marginTop: '-650px'}}>
+          <Paper className={classes.paper} style={{width: 'auto', maxWidth: '800px'}}><h2>Chat List</h2><p style={{color: "black"}}><b>Select user to chat</b></p><ChatList searchedUser={searchedUser} chatSetter={setChatBuddy}></ChatList></Paper>
         </Grid>
       </Grid>
     </div>
