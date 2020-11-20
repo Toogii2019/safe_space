@@ -20,9 +20,8 @@ class MessageList extends React.Component {
           </div>
 
           <div>
-            <h2> No new message? </h2>
             <h6 className='empty-chat-sub-title'>
-              Send your first message below.
+              Send your message below.
             </h6>
           </div>
         </div>
