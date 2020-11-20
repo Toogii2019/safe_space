@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "0%",
     marginTop: "0%",
     marginLeft: "0%",
-    marginRight: "0%",
+    marginRight: "2%",
   },
 }));
 
@@ -46,12 +46,12 @@ export default function FullWidthGrid() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={10}>
+      <Grid container spacing={0}>
+        <Grid item xs={7} sm={7}>
           <Paper className={classes.paper}><MessageSearch setSearchedUser={setSearchedUser}></MessageSearch></Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}><h2>Chat List</h2><p style={{color: "black"}}><b>Select user to start chat</b></p><ChatList searchedUser={searchedUser} chatSetter={setChatBuddy}></ChatList></Paper>
+          <Paper className={classes.paper}><h2>Chat List</h2><p style={{color: "black"}}><b>Select user to chat</b></p><ChatList searchedUser={searchedUser} chatSetter={setChatBuddy}></ChatList></Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}><ChatWindow socket={socket} chat={chat} setChat={setChat} chatGetter={chatBuddy} chatSetter={setChatBuddy}></ChatWindow></Paper>

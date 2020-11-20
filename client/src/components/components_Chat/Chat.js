@@ -1,7 +1,7 @@
 import React from 'react';
 import MessageList from './MessageList';
 import PropTypes from 'prop-types';
-import defaultAvatar from './ironman.jpg';
+import defaultAvatar from './user_typing.png';
 import {writeChatToDB} from '../../utils/API';
 import {sendMessage} from './MessageIO';
 
