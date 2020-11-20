@@ -22,7 +22,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className='container' style={{maxWidth: '800px', paddingTop: '100px'}}>
+      <div className='container' style={{maxWidth: '800px', paddingTop: '40px'}}>
         <div className='chat-header'>
           {this.props.chatGetter ? <h5 style={{color: "blue"}}>You are messaging {this.props.chatGetter} </h5>: <h5 style={{color: "Black"}}>Messaging</h5>}
         </div>
