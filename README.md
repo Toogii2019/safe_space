@@ -4,21 +4,29 @@
 | Frontend:      | Backend:       |
 | -------------- | -------------- |
 | Aiya Siddig    | Cheyenne Hunt  |
-| Julee Butler   | Connor Maguire |
+| Julee Butler   | Conor Maguire |
 | Jessica Feng   | Toogi          |
 
 
 # Safe Space
 
-Safe Space is an application for connecting individuals and creating community around.
+Safe Space is an application for connecting individuals and creating community around by sharing thoughts to public or private during COVID-19 era to stay mentally healthy. 
 
-[gif image]
+<img src="image/safe-space-login.png" width="500" height="300">
+
+<img src="image/safe-space-member.png" width="500" height="300">
 
 ## User Story
 
-As a person who wants to share my thoughts and worry about workspace
-I want to add my thoughts on a application to save my thought at moment
-So that I can keep the thought public or privately with people
+As a person with a lot on my mind, 
+
+I want an app to share my thoughts or post them privately and anonymously, 
+
+So that I can express myself and keep track of how I’m feeling.
+
+## Table of Contents
+  - [Installation](#installation)
+  - [License](#license)
 
 ## Tools Used
 
@@ -28,14 +36,10 @@ So that I can keep the thought public or privately with people
 * React
 * Material-UI [https://material-ui.com/]
 * Socket.io
-* Passport
 * Express
 * Node.js
 * MongoDB
 * Mongoose
-* Chatbox (Message) Repo [https://github.com/bookercodes/react-chatbox-component]
-
-## APIs Used
 
 ## User Criteria
 
@@ -65,20 +69,14 @@ WHEN User click create note,
 THEN User will be able to create new entry of note,
 THEN User will be able to save public or private.
 
-## Screen Map
-
-[image]
-
-## Data Flow Chart
-
-[image]
-
-## Local Usage
+## Installation
 
 1. Clone the repository.
 2. npm install in the terminal to install all dependencies for application.
 3. npm start to start the application locally.
 4. The application should now be running on http://localhost:3000.
+
+
 
 ## Deployment (Heroku)
 
@@ -87,3 +85,7 @@ THEN User will be able to save public or private.
 ## Git Repository (GitHub)
 
 [https://github.com/Toogii2019/safe_space]
+
+## License 
+
+This project is licensed under MIT license. 
