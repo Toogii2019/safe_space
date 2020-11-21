@@ -1,5 +1,6 @@
 import React from 'react';
 import MDSpinner from 'react-md-spinner';
+import emptyChatImage from './no-message.png';
 
 class MessageList extends React.Component {
   render() {
@@ -16,7 +17,7 @@ class MessageList extends React.Component {
       chatContent = (
         <div className='text-center img-fluid empty-chat'>
           <div className='empty-chat-holder'>
-            <img src={"emptyChatImage"} className='img-res' alt='empty chat' />
+            <img src={emptyChatImage} className='img-res' alt='empty chat' />
           </div>
 
           <div>
